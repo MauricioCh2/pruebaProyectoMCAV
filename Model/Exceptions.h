@@ -7,8 +7,13 @@
 
 
 class Exceptions {
-
+private:
+    char motivo;
+public:
+    Exceptions(char m);
+    const char* what()const throw();
 };
+
 
 
 #endif //PRUEBAPROYECTOMCAV_EXCEPTIONS_H
