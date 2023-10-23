@@ -19,4 +19,18 @@ add_executable(pruebaProyectoMCAV main.cpp
         Model/Item.h
         Model/Tienda.cpp
         Model/Tienda.h
+        Model/Motor.cpp
+        Model/Motor.h
+        Model/Motor.h
+        Model/Llantas.cpp
+        Model/Llantas.h
+        Model/Llantas.h
+        Model/Nitro.cpp
+        Model/Nitro.h
+        Model/Nitro.h
+        Model/Vehiculo.cpp
+        Model/Vehiculo.h
+        Model/Jugador.cpp
+        Model/Jugador.h
+        Model/Jugador.h
 )
