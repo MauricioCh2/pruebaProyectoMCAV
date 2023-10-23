@@ -1,0 +1,14 @@
+//
+// Created by mauri on 22/10/2023.
+//
+
+#ifndef PRUEBAPROYECTOMCAV_UTILITIES_H
+#define PRUEBAPROYECTOMCAV_UTILITIES_H
+
+
+class Utilities {
+
+};
+
+
+#endif //PRUEBAPROYECTOMCAV_UTILITIES_H

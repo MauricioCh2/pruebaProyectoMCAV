@@ -1,0 +1,14 @@
+//
+// Created by mauri on 22/10/2023.
+//
+
+#ifndef PRUEBAPROYECTOMCAV_EXCEPTIONS_H
+#define PRUEBAPROYECTOMCAV_EXCEPTIONS_H
+
+
+class Exceptions {
+
+};
+
+
+#endif //PRUEBAPROYECTOMCAV_EXCEPTIONS_H
