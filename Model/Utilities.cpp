@@ -84,8 +84,124 @@ int recivirInt() {
     }
     return 0;
 }
-//VALIDAR------------------------------------------------------
+bool recivirBool() {
+    bool i;
+    bool fin = false;
+    while (!fin){
+        try{//valida que los datos ingresados por el usuario corresponden a un entero
 
+            if (cin >> i) {
+                fin = true;
+                return i;
+            }
+            else  {
+                clear();
+                throw (new Exceptions('b'));
+            }
+        }
+        catch (Exceptions* e) {
+            print(e->what());
+            //enter();
+            //limpiar();
+        }
+    }
+    return 0;
+}
+double recivirDouble() {
+    double i;
+    bool fin = false;
+    while (!fin){
+        try{//valida que los datos ingresados por el usuario corresponden a un entero
+
+            if (cin >> i) {
+                fin = true;
+                return i;
+            }
+            else  {
+                clear();
+                throw (new Exceptions('i'));
+            }
+        }
+        catch (Exceptions* e) {
+            print(e->what());
+            //enter();
+            //limpiar();
+        }
+    }
+    return 0;
+}
+float recivirFloat() {
+    float i;
+    bool fin = false;
+    while (!fin){
+        try{//valida que los datos ingresados por el usuario corresponden a un entero
+
+            if (cin >> i) {
+                fin = true;
+                return i;
+            }
+            else  {
+                clear();
+                throw (new Exceptions('i'));
+            }
+        }
+        catch (Exceptions* e) {
+            print(e->what());
+            //enter();
+            //limpiar();
+        }
+    }
+    return 0;
+}
+string recivirGetLine() {
+    string s;
+    bool fin = false;
+    ignoreCin();
+    while (!fin) {
+        try {
+            getline(cin, s);// recive un string en un gettline para poder agregar frases
+            if (s == "" || s == " ") {
+                throw new Exceptions('s');
+            }
+            return s;
+        }
+        catch ( Exceptions* e) {
+            print(e->what());
+            //enter();
+            //limpiar();
+        }
+    }
+    return s;
+}
+//VALIDAR------------------------------------------------------
+bool yesOrNo(){
+    string res;
+    bool fin = false;
+    regex regexPattern("([Ss]i|[Nn]o|[Yy]es|[Yy])|[Nn]|[Ss]");
+    regex pos("([Ss]|[Ss]i|[Yy]|[Yy]es)");
+    while(!fin){
+        res = recivirString();
+        try {
+            if (regex_match(res, regexPattern)){
+                fin = true;
+                if(regex_match(res, pos)){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }else{
+                clear();
+                throw (new Exceptions('y'));
+            }
+        }
+        catch(Exceptions* e){
+            print(e->what());
+        }
+
+    }
+    return false;
+}
 
 
 

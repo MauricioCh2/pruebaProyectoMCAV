@@ -6,17 +6,19 @@
 #define PRUEBAPROYECTOMCAV_ITEM_H
 
 #include "Utilities.h"
+#include "dist/json/json.h"
 class Item {
-private:
-    string ID;
-    string Nombre;
-    double precio;
-    float traccion;
-    float velocidad;
-    float potencia;
+protected:
+    string _id;
+    string _nombre;
+    double _precio;
+    float _traccion;
+    float _velocidad;
+    float _potencia;
 public:
     Item();
-
+    Item(string id = " ", string nombre = " ", double precio = 0.0, float traccion = 0.0, float velocidad = 0.0, float potencia = 0.0);
+    //GetterSetters-----------------------------------
     virtual const string &getId() const  = 0;
     virtual void setId(const string &id) = 0;
     virtual const string &getNombre() const  = 0;
@@ -29,6 +31,23 @@ public:
     virtual void setVelocidad(float velocidad)  = 0;
     virtual float getPotencia() const = 0;
     virtual void setPotencia(float potencia) = 0;
+    //Item----------------------------------------
+    virtual double costo()=0;
+    virtual void agregarDecoraciones(Item*)=0;
+    virtual string mostrarDecoraciones() const =0;
+    virtual void quitarDecoraciones(string id)=0;
+    virtual void incrementoDecremento()=0;
+    //virtual void setItem(Item*)=0;
+    //virtual Item* getItem()=0;
+    virtual Item* getSiguiente()=0;
+    //virtual int getContador()=0;
+    //Operadores--------------------------------------
+    //friend ostream &operator<<(ostream &os, const Item &vehiculo);
+    virtual bool operator==(const string& id) const = 0;
+    virtual bool operator!=(const string& id) const = 0;
+    //Archivos-------------------------------------=--
+    virtual Item* cargaDatos(Json::Value objeto) = 0;
+    virtual Json::Value salvaDatos(Item& veh) = 0;
 };
 
 

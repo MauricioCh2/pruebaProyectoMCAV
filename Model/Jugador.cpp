@@ -6,12 +6,14 @@
 
 
 Jugador::Jugador() {
-    id = "";
-    nombre = "";
-    dinero = 0.0;
+    _id = "";
+    _nombre = "";
+    _dinero = 0.0;
 
 }
-Jugador::Jugador(const string id, const string nombre, float dinero) : id(id), nombre(nombre), dinero(dinero)/*ptrV(ptrV)*/ {}
+Jugador::Jugador(const string id, const string nombre, double dinero) : _id(id), _nombre(nombre), _dinero(dinero)/*ptrV(ptrV)*/ {
+    _lisVehiculo = new Lista<Vehiculo,-1>;
+}
 
 Jugador::~Jugador() {
 //if(ptrV!=NULL)
@@ -19,45 +21,46 @@ Jugador::~Jugador() {
 }
 
 const string Jugador::getId() const {
-    return id;
+    return _id;
 }
 
 void Jugador::setId(const string id) {
-    this->id = id;
+    this->_id = id;
 }
 
 const string Jugador::getNombre() const {
-    return nombre;
+    return _nombre;
 }
 
 void Jugador::setNombre(const string nombre) {
-    this->nombre = nombre;
+    this->_nombre = nombre;
 }
 
-float Jugador::getDinero() const {
-    return dinero;
+double Jugador::getDinero() const {
+    return _dinero;
 }
 
-void Jugador::setDinero(float dinero) {
-    this->dinero = dinero;
+void Jugador::setDinero(double dinero) {
+    this->_dinero = dinero;
 }
 
-ostream &operator<<(ostream &os, const Jugador *jugador) {
-    os << "id: " << jugador->id << " nombre: " << jugador->nombre << " dinero: " << jugador->dinero;
+ostream &operator<<(ostream &os, const Jugador &jugador) {
+    os << ORANGE"Jugador:\n"<<RESET"id: " << jugador._id << "\nnombre: " << jugador._nombre << "\ndinero: " << jugador._dinero;
+    os << "\n------------------------------------------------\n";
     return os;
 }
 
 void Jugador::agregarVehiculos(Vehiculo* veh) {
-    ptrV->insertEnd(veh);
+    _lisVehiculo->insertEnd(veh);
 }
 
 void Jugador::mostrarVehiculos() const {
 
-    cout << "Jugador: " << nombre << endl;
-    for (int i = 0; i < ptrV->counter(); i++) {
+    cout << "Jugador: " << _nombre << endl;
+    for (int i = 0; i < _lisVehiculo->counter(); i++) {
         Vehiculo* v;
         try {
-            Nodo<Vehiculo>* nodo = ptrV->searchInPos(i);
+            Nodo<Vehiculo>* nodo = _lisVehiculo->searchInPos(i);
             // Obtener la información del nodo
             v = nodo->getInfo();
         }
@@ -76,12 +79,47 @@ void Jugador::mostrarVehiculos() const {
     }
 }
 
-Lista<Vehiculo, 10> *Jugador::getLista() {
-    return ptrV;
+Lista<Vehiculo, -1> *Jugador::getListaVehiculo() {
+    return _lisVehiculo;
+}
+Lista<Pieza, -1> *Jugador::getListaPieza() {
+    return _lisPiezas;
+}
+void Jugador::setListaVehiculos(Lista<Vehiculo, -1> *pV) {
+    _lisVehiculo = pV;
+}
+void Jugador::setListaPieza (Lista<Pieza,-1>* pP) {
+    _lisPiezas = pP;
+}
+bool Jugador::operator==(const string& id) const {
+    return this->_id == id;
 }
 
-void Jugador::setLista(Lista<Vehiculo, 10> *pV) {
-    ptrV = pV;
+bool Jugador::operator!=(const string& id) const {
+    return (this->_id != id);
+}
+//Archivos
+Jugador *Jugador::cargaDatos(Json::Value objeto) {
+    string ident = objeto["ID"].asString();
+    string nombre = objeto["Nombre"].asString();
+    double dinero = objeto["Dinero"].asDouble();
+    //hay que ver lo de la lista
+    return new Jugador(ident, nombre, dinero);
+}
+
+Json::Value Jugador::salvaDatos(Jugador& jug) {
+    Json::Value event;
+    event["ID"] = jug.getId();
+    event["Nombre"] = jug.getNombre();
+    event["Dinero"] = jug.getDinero();
+    //ver lo de la lista x2
+    return event;
+}
+
+void Jugador::cargarLista() {
+    ifstream vehiculos ("lisVechiculos.txt");
+    //_archV.cargarDatos(*_lisVehiculo,vehiculos);
+    //this->setLista();
 }
 
 
