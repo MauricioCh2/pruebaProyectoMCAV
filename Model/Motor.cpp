@@ -103,8 +103,10 @@ Item *Motor::cargaDatos(Json::Value objeto) {
     string ident = objeto["ID"].asString();
     string nombre = objeto["Nombre"].asString();
     double precio = objeto["Precio"].asDouble();
+    float potencia = objeto["Potencia"].asFloat();
+    bool estado = objeto["Estado"].asBool();
     //hay que ver lo de la lista
-    return new Motor(ident, nombre, precio);
+    return new Motor(ident, nombre, precio, potencia);
 }
 
 Json::Value Motor::salvaDatos(Item &veh) {
@@ -112,7 +114,7 @@ Json::Value Motor::salvaDatos(Item &veh) {
     event["ID"] = veh.getId();
     event["Nombre"] = veh.getNombre();
     event["Precio"] = veh.getPrecio();
-
+    event["Potencia"] = veh.getPotencia();
     return event;
 }
 

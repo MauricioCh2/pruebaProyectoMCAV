@@ -173,7 +173,6 @@ Nodo<T> *Lista<T, tam>::searchInPos(int pos) {
     }
     return nullptr;
 }
-
 template<class T, int tam>
 template<class U>
 bool Lista<T, tam>::search(U ident, T& temp) {

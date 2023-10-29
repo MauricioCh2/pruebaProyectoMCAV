@@ -97,11 +97,11 @@ Item *Llantas::cargaDatos(Json::Value objeto) {
     string ident = objeto["ID"].asString();
     string nombre = objeto["Nombre"].asString();
     double precio = objeto["Precio"].asDouble();
-    //float
-    //boleano
+    float traccion = objeto["Traccion"].asFloat();
+    bool estado = objeto["Estado"].asBool();
 
     //hay que ver lo de la lista
-    return new Llantas(ident, nombre, precio);
+    return new Llantas(ident, nombre, precio,traccion);
 }
 
 Json::Value Llantas::salvaDatos(Item &veh) {
@@ -109,7 +109,7 @@ Json::Value Llantas::salvaDatos(Item &veh) {
     event["ID"] = veh.getId();
     event["Nombre"] = veh.getNombre();
     event["Precio"] = veh.getPrecio();
-
+    event["Traccion"] = veh.getTraccion();
     return event;
 }
 //Llantas::Llantas(const string nombre, float traccion) :Item(){
