@@ -21,17 +21,17 @@ public:
     virtual void setPrecio(double precio) ;
     virtual float getTraccion() const ;
     virtual void setTraccion(float traccion) ;
-    virtual float getVelocidad() const ;
-    virtual void setVelocidad(float velocidad) ;
+    //virtual float getVelocidad() const ;
+//    virtual void setVelocidad(float velocidad) ;
     virtual float getPotencia() const;
     virtual void setPotencia(float potencia);
 
     //Vehiculo----------------------------------------
     virtual double costo()=0;
     virtual void agregarDecoraciones(Item*)=0;
-    virtual string mostrarDecoraciones() const =0;
+    virtual string mostrarDecoraciones()  =0;
     virtual void quitarDecoraciones(string id);
-    virtual void incrementoDecremento()=0;
+    //virtual void incrementoDecremento(bool)=0;
     virtual void setItem(Item*);
     virtual Item* getItem();
     virtual Item* getSiguiente();

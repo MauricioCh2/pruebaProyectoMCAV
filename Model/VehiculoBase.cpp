@@ -11,6 +11,8 @@ Vehiculo::Vehiculo(string id, string nombre, double precio, float traccion, floa
 //VehiculoBase::VehiculoBase() {
 //    this->cont = 0;
 //}
+
+
 //ITEM---------------------------------------------------------------
 const string &Vehiculo::getId() const {
     return _id;
@@ -44,13 +46,13 @@ void Vehiculo::setTraccion(float traccion) {
     _traccion = traccion;
 }
 
-float Vehiculo::getVelocidad() const {
-    return _velocidad;
-}
+//float Vehiculo::getVelocidad() const {
+//    return _velocidad;
+//}
 
-void Vehiculo::setVelocidad(float velocidad) {
-    _velocidad = velocidad;
-}
+//void Vehiculo::setVelocidad(float velocidad) {
+//    _velocidad = velocidad;
+//}
 
 float Vehiculo::getPotencia() const {
     return _potencia;
@@ -60,28 +62,82 @@ void Vehiculo::setPotencia(float potencia) {
     _potencia = potencia;
 }
 
-//Vehiculo-----------------------------------------------------------
+//Vehiculo----------------------------------------------------------
+Lista<Pieza,-1>* Vehiculo::getListaPiezas(){
+    return _lisPiezas;
+}
+void Vehiculo::quitarTodasLasDecos(){
+
+    for (int i = 0; i < _lisPiezas->counter() ; ++i) {
+         (*_lisPiezas)[i].setEstado(false);
+        this->incrementoDecremento(true,(*_lisPiezas)[i]);
+    }
+    _lisPiezas = new Lista<Pieza,-1>;
+}
+bool Vehiculo::validarUso(string p){
+    if(!_lisPiezas->exist(p)){
+        return false;
+    }
+    return  _lisPiezas->search(p).getEstado();
+}
+//Item----------------------------------------
 double Vehiculo::costo() {
-    return _precio;
+    double pre = _precio;
+    for (int i = 0; i < _lisPiezas->counter() ; ++i) {
+        pre = pre + (*_lisPiezas)[i].getPrecio();
+    }
+    return pre;
 }
 
-void Vehiculo::agregarDecoraciones(Item * item) {
+void Vehiculo::agregarDecoraciones(Pieza * item) {
     _lisPiezas->insertFirst(dynamic_cast<Pieza *>(item));
+    dynamic_cast<Pieza *>(item)->setEstado(true);
+    this->incrementoDecremento(true, *item);
 }
 
-string Vehiculo::mostrarDecoraciones() const  {
+string Vehiculo::mostrarDecoraciones()  {
     stringstream s;
     s << "-----------------------------------------------------------------------------------------------------------------"<< endl;
-    s << "Modelo: " << this->getNombre() << "\nID: " << this->getId() <<"\tPrecio: " <<this->getPrecio() << "\tTraccion: " << this->getTraccion()<< "\tVelocidad: " << this->getVelocidad()<< "\tPotencia: " << this->getPotencia()  << endl;
+    s << "Modelo: " << this->getNombre() << "\nID: " << this->getId() <<"\tPrecio: " <<this->costo() << "\tTraccion: " << this->getTraccion()<< "\tVelocidad: " << this->getVelocidad()<< "\tPotencia: " << this->getPotencia()  << endl;
     s << "Piezas: "<< endl;
+    if(!_lisPiezas->emptyList()){
+        s << _lisPiezas->toString();
+    }
+    else{
+        s <<"Este vehiculo no cuenta con modificacioes";
+    }
     return s.str();
 }
 
-void Vehiculo::incrementoDecremento() {
+void Vehiculo::incrementoDecremento(bool incremento, Pieza& item) {
+    if(incremento){
+        if (typeid(item).name() == typeid(Motor).name()) {
+            this->setPotencia(this->_potencia + item.getPotencia());
+        }
+        if (typeid(item).name() == typeid(Nitro).name()) {
+            this->setVelocidad(_velocidad + item.getVelocidad());
+        }
+        if (typeid(item).name() == typeid(Llantas).name()) {
+            _traccion = _traccion + item.getTraccion();
+        }
+
+    }else{
+        if (typeid(item).name() == typeid(Motor).name()) {
+            this->setPotencia(this->_potencia - item.getPotencia());
+        }
+        if (typeid(item).name() == typeid(Nitro).name()) {
+            this->setVelocidad(_velocidad - item.getVelocidad());
+        }
+        if (typeid(item).name() == typeid(Llantas).name()) {
+            _traccion = _traccion - item.getTraccion();
+        }
+    }
 }
 void Vehiculo::quitarDecoraciones(string id) {
-    _lisPiezas->deleteEspe(id);
 
+    _lisPiezas->search(id).setEstado(false);
+    incrementoDecremento(false, _lisPiezas->search(id));
+    _lisPiezas->deleteEspe(id);
 }
 
 void Vehiculo::setItem(Item * v) {

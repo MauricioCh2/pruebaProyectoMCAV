@@ -27,10 +27,10 @@ public:
     Jugador* crearJugador();
     Vehiculo* crearVehiculo();
     bool elegirVehiculo(Vehiculo&);
-    bool elegirPieza(string&);
-    bool elegirPieza(Pieza&);
+    bool elegirPieza(string&, Vehiculo&); //Este busca piezas y recive vehiculo para poder verificar que no tenga ya esta pieza
+    bool elegirPiezaDeVehiculo(string&, Vehiculo&);  //Este busca e imprime las piezas del vehiculo que resive
 
-    bool quitarTodas();
+
     bool quitarTodasEspe();
     bool quitarUnaEspe();
     bool modifiarVehiculo();

@@ -45,7 +45,7 @@ bool MenuControler::opMenuJugador() {
             enter();
             break;
         case 4://ModificarVehiculos
-            while (!atras) {
+            while (!atras) {//Este while permite ir al menu anterior  y no volver al principal
                 print(_menu->subMenuModVehiculos());
                 atras = opsubMenuModificacion();
                 enter();
@@ -70,17 +70,27 @@ bool MenuControler::opsubMenuModificacion() {
     op = recivirInt();
     switch (op) {
         case 1://Quitar todas las piezas de todos los  vehiculos
-            print(RED"opcion en desarrollo");
-            enter();
+            _juego->quitarTodas();
+            print("Listo todos elementos han sido desemsamblados");
+            //enter();
             break;
         case 2://Quitar todas las piezas de un vehiculo en especifico
-            print(RED"opcion en desarrollo");
-            enter();
+            if(quitarTodasEspe()){
+                print (YELLOW"vehiculo desemsamblado correctamente");
+            }
+            else{
+                print(RED"Fallo en eliminar");
+            }
             break;
         case 3://Quitar una las piezas de un vehiculo en especifico
             //hay que poner ifs y cosas para avisar si ya no hay decoradores que borrar
-            print(RED"opcion en desarrollo");
-            enter();
+            if(quitarUnaEspe()){
+                print (YELLOW"mejora eliminada correctamente");
+            }
+            else{
+                print(RED"Fallo en eliminar");
+            }
+            //enter();
             break;
         case 4: //Modificar el vehiculo
             //hay que poner ifs y cosas para avisar si ya no hay decoradores que borrar
@@ -90,7 +100,7 @@ bool MenuControler::opsubMenuModificacion() {
             else{
                 print(RED"Fallo en la mejora");
             }
-            enter();
+            //enter();
             break;
         case 5://Atras
             clean();
@@ -237,8 +247,8 @@ Jugador* MenuControler::crearJugador() {
     print("Desea utilizar los 3 vehiculos por defecto?(y/n)");
     op = yesOrNo();
     if(op){
-        archVe.cargarVehiculos((*listaV),carVeD);
-        JugTemp->setListaVehiculos(listaV);
+
+        JugTemp->setListaVehiculos(&archVe.cargarVehiculos(carVeD));
     }
    if(!op){
        print("Cuantos vehiculos desea agregar (minimo uno max 5)");
@@ -301,6 +311,7 @@ bool MenuControler::elegirVehiculo(Vehiculo& veh) {
             verificacion = true;
         }
         catch (Exceptions e) {
+            clean();
             print(e.what());
 
         }
@@ -308,46 +319,64 @@ bool MenuControler::elegirVehiculo(Vehiculo& veh) {
 
     return true;
 }
-bool MenuControler::elegirPieza(Pieza& pieza) {
+bool MenuControler::elegirPiezaDeVehiculo(string& pieza, Vehiculo& veh) {
+string idPieza;
+bool verificacion = false;
+while(!verificacion) {
+    if(_juego->getListaPiezasDeVehiculo(&veh).emptyList()){
+        print(RED"Este vehiculo no posee piezas");
+        return false;
+    }
+print(YELLOW"\nQue pieza deseas elegir?(si escribe 'salir' ira al menu anterior)");
+print(_juego->imprimirListaPiezasVehiculo(&veh));
+idPieza = recivirString();
+if(idPieza == "salir"){
+return false;
+}
+try {
+
+
+if(_juego->getListaPiezasDeVehiculo(&veh).exist(idPieza)) {
+//if(!veh.validarUso(idPieza)){
+verificacion = true;
+pieza = idPieza;
+return true;
+//}else {print(RED"ERROR: esa pieza se encuentra en uso, ingrese una existente o escriba 'salir");}
+
+}else {print(RED"ERROR: esa pieza no existe, ingrese una existente o escriba 'salir");}
+}
+catch (Exceptions e) {
+clean();
+print(e.what());
+
+}
+}
+
+return false;
+}
+bool MenuControler::elegirPieza(string& pieza, Vehiculo& veh) {
     string idPieza;
     bool verificacion = false;
     while(!verificacion) {
         print(YELLOW"\nQue pieza deseas elegir?(si escribe 'salir' ira al menu anterior)");
-        print(_juego->imprimirVehiculosJugador());
-        print("\nIngrese el id de la pieza  a elegir: ");
+        print(_juego->imprimirPiezasJugador());
         idPieza = recivirString();
         if(idPieza == "salir"){
             return false;
         }
         try {
-            pieza= *_juego->buscarPiezaJugador(idPieza);
-            verificacion = true;
+
+            if(_juego->getListaPiezasJugador().exist(idPieza)) {
+                if(!veh.validarUso(idPieza)){
+                    verificacion = true;
+                    pieza = idPieza;
+                    return true;
+                }else {print(RED"ERROR: esa pieza se encuentra en uso, ingrese una existente o escriba 'salir");}
+
+            }else {print(RED"ERROR: esa pieza no existe, ingrese una existente o escriba 'salir");}
         }
         catch (Exceptions e) {
-            print(e.what());
-
-        }
-    }
-
-    return true;
-}
-bool MenuControler::elegirPieza(string& pieza) {
-    string idPieza;
-    bool verificacion = false;
-    while(!verificacion) {
-        print("Que pieza deseas agregar?(si escribe 'salir' ira al menu anterior)");
-        print(_juego->imprimirVehiculosJugador());
-        idPieza = recivirString();
-        if(idPieza == "salir"){
-            return false;
-        }
-        try {
-            if(_juego->getListaPiezasJugador().exist(pieza)) {
-                verificacion = true;
-                return true;
-            }else {return false;}
-        }
-        catch (Exceptions e) {
+            clean();
             print(e.what());
 
         }
@@ -356,15 +385,29 @@ bool MenuControler::elegirPieza(string& pieza) {
     return true;
 }
 
-bool MenuControler::quitarTodas() {
-    return false;
-}
 
 bool MenuControler::quitarTodasEspe() {
+    Vehiculo vehiculo;
+    bool verVehiculo = false;
+    verVehiculo = elegirVehiculo(vehiculo);
+    if(verVehiculo){
+        _juego->quitarTodasEspe(&vehiculo);
+        return true;
+    }
     return false;
 }
 
 bool MenuControler::quitarUnaEspe() {
+    Vehiculo vehiculo;
+    string pieza;
+    bool verVehiculo = false;
+    bool verPieza = false;
+    verVehiculo = elegirVehiculo(vehiculo);
+    verPieza = elegirPiezaDeVehiculo(pieza,vehiculo);
+    if (verVehiculo&&verPieza){
+        _juego->quitarUnaEspe(&vehiculo,pieza);
+        return true;
+    }
     return false;
 }
 
@@ -374,8 +417,9 @@ bool MenuControler::modifiarVehiculo() {
     bool verVehiculo = false;
     bool verPieza = false;
     verVehiculo = elegirVehiculo(vehiculo);
-    verPieza = elegirPieza(pieza);
+    verPieza = elegirPieza(pieza, vehiculo);
     if (verVehiculo&&verPieza){
+        _juego->getListaPiezasDeVehiculo(&vehiculo);
         _juego->modificarVehiculo(&vehiculo,pieza);
         return true;
     }

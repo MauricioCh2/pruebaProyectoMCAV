@@ -7,8 +7,11 @@
 
 #include "Item.h"
 #include "Exceptions.h"
-#include "Pieza.h"
+//#include "Pieza.h"
 #include "Lista.h"
+#include "Motor.h"
+#include "Llantas.h"
+#include "Nitro.h"
 class Vehiculo:public Item  {
 private:
     Lista<Pieza,-1>* _lisPiezas;
@@ -24,17 +27,20 @@ public:
     virtual void setPrecio(double precio);
     virtual float getTraccion() const;
     virtual void setTraccion(float traccion) ;
-    virtual float getVelocidad() const ;
-    virtual void setVelocidad(float velocidad) ;
+    //virtual float getVelocidad() const ;
+    //virtual void setVelocidad(float velocidad) ;
     virtual float getPotencia() const ;
     virtual void setPotencia(float potencia) ;
-
+    //Vehiculo-----------------------------------
+    virtual Lista<Pieza,-1>* getListaPiezas();
+    virtual void quitarTodasLasDecos();
+    bool validarUso(string );
     //Item----------------------------------------
     virtual double costo();
-    virtual void agregarDecoraciones(Item*);
-    virtual string mostrarDecoraciones() const ;
+    virtual void agregarDecoraciones(Pieza*);
+    virtual string mostrarDecoraciones()  ;
     virtual void quitarDecoraciones(string id);
-    virtual void incrementoDecremento();
+    virtual void incrementoDecremento(bool, Pieza& item);
     virtual void setItem(Item*);
     virtual Item* getItem();
     virtual Item* getSiguiente();

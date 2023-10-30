@@ -60,16 +60,16 @@ float Motor::getPotencia()const {
 }
 //Item-----------------------------------------------
 double Motor::costo() {
-    return this->ptrItem->costo() + this->_precio;
+    return costo() + this->_precio;
 }
 
 void Motor::agregarDecoraciones(Item *) {
 
 }
 
-string Motor::mostrarDecoraciones()  const {
+string Motor::mostrarDecoraciones()   {
     stringstream s;
-    s <<"\t-Motor: " << getNombre() << "\n\tID: " << getId() <<"\tPrecio: " <<getPrecio() << "\tMejora en potencia: " << getVelocidad()<< " Estado: ";
+    s <<"\t-Motor: " << getNombre() << "\n\tID: " << getId() <<"\tPrecio: " <<getPrecio() << "\tMejora en potencia: " << getPotencia()<< " Estado: ";
     this->getEstado() ? s<< YELLOW"Usado" << RESET: s << "Disponible"; //condicion ? exprecion1 : condicion2 (es otra forma de usar if)
     s<< endl;
 
@@ -78,9 +78,9 @@ string Motor::mostrarDecoraciones()  const {
     return s.str();
 }
 
-void Motor::incrementoDecremento() {
-
-}
+//void Motor::incrementoDecremento(bool) {
+//
+//}
 
 int Motor::getContador() {
     return 0;

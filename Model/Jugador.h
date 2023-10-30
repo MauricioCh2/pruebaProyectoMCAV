@@ -43,7 +43,7 @@ public:
     void agregarVehiculos(Vehiculo* );
     void mostrarVehiculos() const;
 
-    friend ostream &operator<<(ostream &os, const Jugador &jugador);
+    friend ostream &operator<<(ostream &os,  Jugador &jugador);
     bool operator==(const string& id) const;
     bool operator!=(const string& id) const;
 

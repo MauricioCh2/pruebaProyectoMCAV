@@ -32,7 +32,7 @@ public:
     int getNum() const;
 
     string toStringN();
-    friend ostream &operator<<(ostream &os, const Nodo &nodo) {
+    friend ostream &operator<<(ostream &os,  Nodo &nodo) {
         os << *nodo._info;
         return os;
     }

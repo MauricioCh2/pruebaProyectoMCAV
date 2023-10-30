@@ -14,36 +14,48 @@ Juego::Juego(Jugador* j){
 }
 
 Jugador *Juego::recuperarJugador() {
+    //recupera jugador
     Lista<Jugador,-1> tempL;
     ifstream rec ("lisJugador.txt");
     _archJug.cargarDatos(tempL, rec );
     Jugador* jug = tempL.getFirst()->getInfo();
 
-    ifstream carVe ("lisVehiculos.txt");
-    Lista<Vehiculo,-1>*  listaV = new  Lista<Vehiculo,-1>;
-    Archivos<Lista<Vehiculo, -1>, Vehiculo> archVe;
-
+    //recupera vehiculo
+//    Lista<Vehiculo,-1>  listaV;
+//    ifstream carVe ("lisVehiculosD.txt");
+//    Archivos<Lista<Vehiculo, -1>, Vehiculo> archVe;
+//
+//    if(!carVe.fail()) {
+//        jug->setListaVehiculos(&archVe.cargarVehiculos(carVe));
+//    }
 //--------------------------------------------------------------------------------------------------------BORRAR-----------
     Vehiculo* quemado1 = new Vehiculo("V1", "Ferrari 458 Italia Coupe", 15000, 21, 250, 562);
     Vehiculo* quemado2 = new Vehiculo("V2", "Tesla Model X", 17000, 22, 180, 670 );
     Vehiculo* quemado3 = new Vehiculo("V3", "Maserati MC12 Stradale", 17000, 18, 255, 450 );
     Lista<Vehiculo, -1>* lisQ = new Lista<Vehiculo, -1>;
+    //Lista<Vehiculo, -1> lisQ ;
     lisQ->insertFirst(quemado1);
     lisQ->insertFirst(quemado2);
     lisQ->insertFirst(quemado3);
-    ofstream carVeD ("lisVehiculosD.txt");
-    Archivos<Lista<Vehiculo, -1>,Vehiculo> arch;
-    //arch.guardarDatos(*lisQ,carVeD );
-    jug->setListaVehiculos(lisQ);
+   // ofstream guarVeD ("lisVehiculosD.txt");
+    //ifstream carVeD ("lisVehiculosD.txt");
+//    Archivos<Lista<Vehiculo, -1>,Vehiculo> arch;
+//    arch.cargarVehiculos(lisQ, carVeD);
+//    //arch.guardarDatos(*lisQ,guarVeD );
+//    if(!carVeD.fail()){
+        jug->setListaVehiculos(lisQ);
+//    }
+
 //--------------------------------------------------------------------------------------------------------BORRAR-----------
-    Pieza* piezaQ1 = new Motor("M1","interno", 1700, 25);
-    Pieza* piezaQ2 = new Motor("M1","alto rendimiento", 2300, 50);
-    Pieza* piezaQ3 = new Llantas("Ll1"," AA alta traccion", 80, 220);
+// pieza ("nombre", "ID", precio, float )
+    Pieza* piezaQ1 = new Motor("interno","M1", 1700, 25);
+    Pieza* piezaQ2 = new Motor("alto rendimiento","M2", 2300, 50);
+    Pieza* piezaQ3 = new Llantas(" AA alta traccion","Ll1", 80, 220);
     Pieza* piezaQ4 = new Motor("M1","Motor interno", 1700, 25);
     Pieza* piezaQ5 = new Motor("M1","Motor interno", 1700, 25);
     Pieza* piezaQ6 = new Motor("M1","Motor interno", 1700, 25);
     Pieza* piezaQ7 = new Motor("M1","Motor interno", 1700, 25);
-    Pieza* piezaQ8 = new Nitro("M1"," Altro rendimiento", 2000, 30);
+    Pieza* piezaQ8 = new Nitro(" Altro rendimiento","N1", 2000, 30);
     Lista<Pieza, -1>* lisPQ = new Lista<Pieza, -1>;
     lisPQ->insertFirst(piezaQ1);
     lisPQ->insertFirst(piezaQ2);
@@ -84,12 +96,27 @@ Lista<Vehiculo, -1>& Juego::getListaVehiculoJugadcor(){
 Lista<Pieza, -1>& Juego::getListaPiezasJugador(){
     return *_jugador->getListaPieza();
 }
-//Sub menu modificacion---------------------------------------------------
-void Juego::quitarTodas() {
-
+//Lista piezas vehiculos-------------------------
+Lista<Pieza, -1>& Juego::getListaPiezasDeVehiculo(Vehiculo* vehiculo){
+    return *vehiculo->getListaPiezas();
 }
 
-void Juego::quitarTodasEspe(Vehiculo *) {
+string Juego::imprimirListaPiezasVehiculo(Vehiculo* vehiculo){
+    return getListaPiezasDeVehiculo(vehiculo).toString();
+}
+
+
+//Sub menu modificacion---------------------------------------------------
+void Juego::quitarTodas() {
+    for (int i = 0; i < getListaVehiculoJugadcor().counter(); ++i) {
+        (getListaVehiculoJugadcor())[i].quitarTodasLasDecos();
+    }
+}
+
+void Juego::quitarTodasEspe(Vehiculo * vehiculo) {
+    if(!vehiculo->getListaPiezas()->emptyList()){
+        vehiculo->quitarTodasLasDecos();
+    }
 
 }
 
@@ -98,7 +125,7 @@ void Juego::quitarUnaEspe(Vehiculo * vehiculo, string pieza) {
 }
 
 void Juego::modificarVehiculo(Vehiculo * vehiculo, string pieza) {
-        vehiculo->agregarDecoraciones(buscarPiezaJugador(pieza));
+    vehiculo->agregarDecoraciones(buscarPiezaJugador(pieza));
 }
 
 //Utilidades---------------------------------------------------------------
@@ -108,4 +135,9 @@ Pieza *Juego::buscarPiezaJugador(string id) {
 
 Vehiculo *Juego::buscarVehiculoJugador(string id ) {
     return &_jugador->getListaVehiculo()->search(id);
+}
+
+bool Juego::validarUso() {
+    _jugador->getListaPieza();
+    return false;
 }

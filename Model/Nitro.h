@@ -28,13 +28,13 @@ public:
     virtual void setNombre(const string &nombre);
     virtual double getPrecio() const;
     virtual void setPrecio(double precio) ;
-    virtual float getVelocidad() const ;
-    virtual void setVelocidad(float velocidad);
+    //virtual float getVelocidad() const ;
+    //virtual void setVelocidad(float velocidad);
     //Vehiculo----------------------------------------
     virtual double costo();
     virtual void agregarDecoraciones(Item*);
-    virtual string mostrarDecoraciones() const ;
-    virtual void incrementoDecremento();
+    virtual string mostrarDecoraciones()  ;
+    //virtual void incrementoDecremento(bool);
     virtual int getContador();
     //Operadores--------------------------------------
     friend ostream &operator<<(ostream &os, const Item &vehiculo);

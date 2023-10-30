@@ -44,7 +44,7 @@ void Jugador::setDinero(double dinero) {
     this->_dinero = dinero;
 }
 
-ostream &operator<<(ostream &os, const Jugador &jugador) {
+ostream &operator<<(ostream &os,  Jugador &jugador) {
     os << ORANGE"Jugador:\n"<<RESET"id: " << jugador._id << "\nnombre: " << jugador._nombre << "\ndinero: " << jugador._dinero;
     os << "\n------------------------------------------------\n";
     return os;

@@ -20,6 +20,11 @@ public:
     string imprimirPiezasJugador();
     Lista<Vehiculo, -1>& getListaVehiculoJugadcor();
     Lista<Pieza, -1>& getListaPiezasJugador();
+    bool validarUso();
+    //Lista piezas vehiculos-------------------------
+    Lista<Pieza, -1>& getListaPiezasDeVehiculo(Vehiculo* );
+    string imprimirListaPiezasVehiculo( Vehiculo*);
+
     //Submenu modificacion----------------------------
     void quitarTodas();
     void quitarTodasEspe(Vehiculo*);//Quita todas las piezas de un vehiculo especifico

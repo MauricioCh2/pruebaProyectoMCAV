@@ -37,13 +37,13 @@ void Pieza::setTraccion(float traccion) {
     _traccion = traccion;
 }
 
-float Pieza::getVelocidad() const {
-    return _velocidad;
-}
+//float Pieza::getVelocidad() const {
+//    return _velocidad;
+//}
 
-void Pieza::setVelocidad(float velocidad) {
-    _velocidad = velocidad;
-}
+//void Pieza::setVelocidad(float velocidad) {
+//    _velocidad = velocidad;
+//}
 
 float Pieza::getPotencia() const {
     return _potencia;

@@ -50,12 +50,12 @@ double Nitro::getPrecio() const {
 void Nitro::setPrecio(double precio) {
     Pieza::setPrecio(precio);
 }
-float Nitro::getVelocidad() const {
-    return _velocidad;
-}
-void Nitro::setVelocidad(float velocidad) {
-    Pieza::setVelocidad(velocidad);
-}
+//float Nitro::getVelocidad() const {
+//    return _velocidad;
+//}
+//void Nitro::setVelocidad(float velocidad) {
+//    Pieza::setVelocidad(velocidad);
+//}
 
 double Nitro::costo() {
     return this->ptrItem->costo() + this->_precio;
@@ -65,7 +65,7 @@ void Nitro::agregarDecoraciones(Item *) {
 
 }
 
-string Nitro::mostrarDecoraciones() const  {
+string Nitro::mostrarDecoraciones()   {
     stringstream s;
     //s << this->ptrItem->mostrarDecoraciones() << endl;
     s <<"\t-Nitro: " << getNombre() << "\n\tID: " << getId() <<"\tPrecio: " <<getPrecio() << "\tMejora en Velocidad: " << getVelocidad()<< " Estado: ";
@@ -74,9 +74,9 @@ string Nitro::mostrarDecoraciones() const  {
     return s.str();
 }
 
-void Nitro::incrementoDecremento() {
-
-}
+//void Nitro::incrementoDecremento(bool) {
+//
+//}
 
 int Nitro::getContador() {
     return 0;

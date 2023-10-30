@@ -37,7 +37,7 @@ string Menu::menuJugador() {
 
 string Menu::subMenuModVehiculos() {
     stringstream s;
-    s<< YELLOW"<<<<Modificacion de vehiculos>>>>"<<RESET<<endl;
+    s<< YELLOW"<Menu Jugador<<Modificacion de vehiculos>>>"<<RESET<<endl;
     s<< "[1] Quitar TODAS las piezas de TODOS los vehiculo"<<endl;
     s<< "[2] Quitar TODAS las piezas de un vehiculo en especifico"<<endl;
     s<< "[3] Quitar una pieza de un vehiculo en especifico"<<endl;

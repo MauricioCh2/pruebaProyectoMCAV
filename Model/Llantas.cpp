@@ -62,9 +62,9 @@ void Llantas::agregarDecoraciones(Item *) {
 
 }
 
-string Llantas::mostrarDecoraciones() const  {
+string Llantas::mostrarDecoraciones()   {
     stringstream s;
-    s <<"\t-Llantas: " << getNombre() << "\n\tID: " << getId() <<"\tPrecio: " <<getPrecio() << "\tMejora en traccion: " << getVelocidad()<< " Estado: ";
+    s <<"\t-Llantas: " << getNombre() << "\n\tID: " << getId() <<"\tPrecio: " <<getPrecio() << "\tMejora en traccion: " << getTraccion()<< " Estado: ";
     this->getEstado() ? s<< YELLOW"Usado" << RESET: s << "Disponible"; //condicion ? exprecion1 : condicion2 (es otra forma de usar if)
     s << endl;
     return s.str();
@@ -73,9 +73,9 @@ string Llantas::mostrarDecoraciones() const  {
 
 
 
-void Llantas::incrementoDecremento() {
-
-}
+//void Llantas::incrementoDecremento(bool incremento) {
+//
+//}
 
 int Llantas::getContador() {
     return 0;

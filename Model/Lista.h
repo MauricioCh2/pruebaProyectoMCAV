@@ -196,9 +196,19 @@ bool Lista<T, tam>::search(U ident, T& temp) {
 template<class T, int tam>
 template<class U>
 T& Lista<T, tam>::search(U ident) {
+    if(emptyList()) {
+        throw (Exceptions('L'));
+    }
     Nodo<T> actual1 = *_first;
     Nodo<T> actual2 = *_end;
-
+    if(actual1.getNext() == nullptr && actual2.getPrev()== nullptr) {
+        if (*(actual1.getInfo()) == ident) {
+            return *actual1.getInfo();
+        }
+        if (*(actual2.getInfo()) == ident) {
+            return  *actual2.getInfo();
+        }
+    }
     while (actual1.getNext() != nullptr && actual2.getPrev() != nullptr) {
         if (*(actual1.getInfo()) == ident) {
             return *actual1.getInfo();
@@ -215,17 +225,34 @@ T& Lista<T, tam>::search(U ident) {
 template<class T, int tam>
 template<class U>
 bool Lista<T, tam>::exist(U ident) {
+    if(emptyList()){
+        return false;
+    }
     Nodo<T> actual1 = *_first;
     Nodo<T> actual2 = *_end;
-    while (actual1.getNext() != nullptr && actual2.getPrev() != nullptr) {
+
+    if(actual1.getNext() == nullptr && actual2.getPrev()== nullptr){ // si hay un solo objeto
         if (*(actual1.getInfo()) == ident) {
             return true;
         }
         if (*(actual2.getInfo()) == ident) {
             return true;
         }
-        actual1 = *actual1.getNext();
-        actual2 = *actual2.getPrev();
+        else {return false;}
+    }
+    while (actual1.getNext()->getNext() != nullptr && actual2.getPrev()->getPrev() != nullptr) {
+
+        if (*(actual1.getInfo()) == ident) {
+            return true;
+        }
+        if (*(actual2.getInfo()) == ident) {
+            return true;
+        }
+        if(actual1.getNext() != nullptr && actual2.getPrev() != nullptr  ){
+            actual1 = *actual1.getNext();
+            actual2 = *actual2.getPrev();
+        }else {return false;}
+
     }
     return false;
 }
