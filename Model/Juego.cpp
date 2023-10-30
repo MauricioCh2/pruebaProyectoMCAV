@@ -21,29 +21,37 @@ Jugador *Juego::recuperarJugador() {
     Jugador* jug = tempL.getFirst()->getInfo();
 
     //recupera vehiculo
-//    Lista<Vehiculo,-1>  listaV;
-//    ifstream carVe ("lisVehiculosD.txt");
-//    Archivos<Lista<Vehiculo, -1>, Vehiculo> archVe;
-//
-//    if(!carVe.fail()) {
-//        jug->setListaVehiculos(&archVe.cargarVehiculos(carVe));
-//    }
+    Lista<Vehiculo,-1>  listaV;
+    ifstream carVe ("lisVehiculosD.txt");
+    Archivos<Lista<Vehiculo, -1>, Vehiculo> archVe;
+
+    if(!carVe.fail()) {
+        jug->setListaVehiculos(&archVe.cargarVehiculos(carVe));
+    }
 //--------------------------------------------------------------------------------------------------------BORRAR-----------
-    Vehiculo* quemado1 = new Vehiculo("V1", "Ferrari 458 Italia Coupe", 15000, 21, 250, 562);
-    Vehiculo* quemado2 = new Vehiculo("V2", "Tesla Model X", 17000, 22, 180, 670 );
-    Vehiculo* quemado3 = new Vehiculo("V3", "Maserati MC12 Stradale", 17000, 18, 255, 450 );
-    Lista<Vehiculo, -1>* lisQ = new Lista<Vehiculo, -1>;
-    //Lista<Vehiculo, -1> lisQ ;
-    lisQ->insertFirst(quemado1);
-    lisQ->insertFirst(quemado2);
-    lisQ->insertFirst(quemado3);
+//    Vehiculo* quemado1 = new Vehiculo("V1", "Ferrari 458 Italia Coupe", 15000, 21, 250, 562);
+//    Vehiculo* quemado2 = new Vehiculo("V2", "Tesla Model X", 17000, 22, 180, 670 );
+//    Vehiculo* quemado3 = new Vehiculo("V3", "Maserati MC12 Stradale", 17000, 18, 255, 450 );
+//    Lista<Vehiculo, -1>* lisQ = new Lista<Vehiculo, -1>;
+//
+//
+//    //Lista<Vehiculo, -1> lisQ ;
+//
+//
+//    lisQ->insertFirst(quemado1);
+//    lisQ->insertFirst(quemado2);
+//    lisQ->insertFirst(quemado3);
    // ofstream guarVeD ("lisVehiculosD.txt");
     //ifstream carVeD ("lisVehiculosD.txt");
 //    Archivos<Lista<Vehiculo, -1>,Vehiculo> arch;
 //    arch.cargarVehiculos(lisQ, carVeD);
 //    //arch.guardarDatos(*lisQ,guarVeD );
 //    if(!carVeD.fail()){
-        jug->setListaVehiculos(lisQ);
+
+
+        //jug->setListaVehiculos(lisQ);
+
+
 //    }
 
 //--------------------------------------------------------------------------------------------------------BORRAR-----------

@@ -23,7 +23,7 @@ public:
     }
     void guardarDatos(T&, ofstream&);
     void cargarDatos(T&, ifstream&);
-    T& cargarVehiculos(ifstream&);
+    Lista<Vehiculo, -1>& cargarVehiculos(ifstream&);
 };
 
 template<class T, class U>
@@ -67,7 +67,7 @@ void Archivos<T, U>::cargarDatos(T& lis, ifstream& entrada) {
     //return lis;
 }
 template<class T, class U>
-T& Archivos<T, U>::cargarVehiculos(ifstream& entrada) {
+Lista<Vehiculo, -1>& Archivos<T, U>::cargarVehiculos(ifstream& entrada) {
     //ifstream entrada ("pureba.txt"); // hay que ver como hacer una validacion que vea si esta vacio
     Vehiculo* temp = nullptr;
     Json::Value objetos;

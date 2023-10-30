@@ -182,6 +182,7 @@ Vehiculo * Vehiculo::cargaDatos(Json::Value objeto) {
     float potencia = objeto["Potencia"].asFloat();
     //hay que ver lo de la lista
     return new Vehiculo(ident, nombre, precio, traccion, velocidad, potencia);
+
 }
 
 Json::Value Vehiculo::salvaDatos(Item &veh) {

@@ -17,7 +17,7 @@ private:
     Lista<Pieza,-1>* _lisPiezas;
 public:
     //VehiculoBase();
-    Vehiculo(string id = "0", string nombre = " ", double precio = 0.0, float traccion = 0.0, float velocidad = 0.0, float potencia = 0.0);
+    Vehiculo(string id = " ", string nombre = " ", double precio = 0.0, float traccion = 0.0, float velocidad = 0.0, float potencia = 0.0);
     //Item--------------------------------------------
     virtual const string &getId() const ;
     virtual void setId(const string &id);
