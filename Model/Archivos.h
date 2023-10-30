@@ -22,8 +22,7 @@ public:
 
     }
     void guardarDatos(T&, ofstream&);
-    void cargarDatos(T&, ifstream&);
-    Lista<Vehiculo, -1>& cargarVehiculos(ifstream&);
+    Lista<U,-1>* cargarDatos(ifstream&);
 };
 
 template<class T, class U>
@@ -46,9 +45,10 @@ void Archivos<T, U>::guardarDatos(T& lis, ofstream& salida) {
     salida.close();
 }
 template<class T, class U>
-void Archivos<T, U>::cargarDatos(T& lis, ifstream& entrada) {
+Lista<U,-1>* Archivos<T, U>::cargarDatos(ifstream& entrada) {
     //ifstream entrada ("pureba.txt"); // hay que ver como hacer una validacion que vea si esta vacio
-    U* temp = nullptr;
+    U* temp = new U();
+    Lista<U,-1>* lis =  new Lista<U,-1>;
     Json::Value objetos;
     Json::Reader reader;
     reader.parse(entrada, objetos);
@@ -57,32 +57,13 @@ void Archivos<T, U>::cargarDatos(T& lis, ifstream& entrada) {
             if(!entrada.bad()) {
                 if (temp->cargaDatos(objetos[i]) != NULL) {
                     temp = temp->cargaDatos(objetos[i]);
-                    lis.insertEnd(temp);
+                    lis->insertEnd(temp);
                 }
             }
         }
-
-
-    entrada.close();
-    //return lis;
-}
-template<class T, class U>
-Lista<Vehiculo, -1>& Archivos<T, U>::cargarVehiculos(ifstream& entrada) {
-    //ifstream entrada ("pureba.txt"); // hay que ver como hacer una validacion que vea si esta vacio
-    Vehiculo* temp = nullptr;
-    Json::Value objetos;
-    Json::Reader reader;
-    reader.parse(entrada, objetos);
-    Lista<Vehiculo, -1> lis;
-    for (int i = 0; i < objetos.size(); ++i) {
-        //if(temp->cargaDatos(objetos[i]) != NULL){
-            //temp = static_cast<Vehiculo>(*temp.cargaDatos(objetos[i]));
-            temp = temp->cargaDatos(objetos[i]);
-            lis.insertFirst(temp);
-       // }
-    }
     entrada.close();
     return lis;
+
 }
 
 

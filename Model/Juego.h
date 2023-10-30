@@ -11,6 +11,12 @@ class Juego {
 private:
 Jugador* _jugador;
 Archivos<Lista<Jugador, -1>, Jugador> _archJug;
+string _infoJug;
+string _listaVehiculo;
+string _listaVehiculoDefecto;
+string _listaPieza;
+string _listaPiezaTienda;
+
 public:
     Juego(Jugador*);
     Jugador* recuperarJugador();

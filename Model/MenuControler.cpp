@@ -9,14 +9,11 @@ void MenuControler::inicio() {
     print (_menu->menuInicio());
     bool op = recivirBool();
     if(op){
-    _juego = new Juego( crearJugador());
+    _juego = new Juego(crearJugador());
     }else{
         _juego = new Juego(_juego->recuperarJugador());
     }
 
-    //aqui va a ir cargar
-    //arch = new Archivos(_tienda);
-    //arch->cargar();
     while (!fin) {
         clean();
         llamarMenus();
@@ -222,23 +219,20 @@ Jugador* MenuControler::crearJugador() {
     int can = 0;
     Lista<Jugador,-1> lisJ;
     Lista<Vehiculo,-1>*  listaV = new  Lista<Vehiculo,-1>;
-
-    ofstream guar ("lisJugador.txt");
+    ofstream guar ("infoJugador.txt");
     ofstream carVe ("lisVehiculos.txt");
-    ifstream carVeD ("lisVehiculosD.txt");
-
+    ifstream carVeD ("lisVehiculosDefecto.txt");
     Archivos<Lista<Jugador,-1>,Jugador>  arch;
     Archivos<Lista<Vehiculo, -1>, Vehiculo> archVe;
 
+    //Crea el nuevo jugador----------------------------
     Jugador* JugTemp = nullptr;
-
     print("Ingrese el id: ");
     id = recivirStringN();
     print("Ingrese el nombre: ");
     nombre = recivirGetLine();
     print("Ingrese el dinero que tendra disponible: ");
     dinero = recivirDouble();
-
     JugTemp = new Jugador(id, nombre, dinero);
 
     lisJ.insertFirst(JugTemp);
@@ -247,8 +241,7 @@ Jugador* MenuControler::crearJugador() {
     print("Desea utilizar los 3 vehiculos por defecto?(y/n)");
     op = yesOrNo();
     if(op){
-
-        JugTemp->setListaVehiculos(&archVe.cargarVehiculos(carVeD));
+        JugTemp->setListaVehiculos(archVe.cargarDatos(carVeD));
     }
    if(!op){
        print("Cuantos vehiculos desea agregar (minimo uno max 5)");
