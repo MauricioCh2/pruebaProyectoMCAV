@@ -17,6 +17,7 @@ _potencia = potencia;
 ostream &operator<<(ostream &os,  Item &item){
     //os << "Id: " << item.getId() << "Nombre: " << item.getNombre() << "Costo" << item.getPrecio();
     os << item.mostrarDecoraciones();
+    //os << "Velocidad pruebaaaa: "<< item.getVelocidad()<<endl;
     return os;
 }
 

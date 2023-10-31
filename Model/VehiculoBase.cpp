@@ -70,7 +70,7 @@ void Vehiculo::quitarTodasLasDecos(){
 
     for (int i = 0; i < _lisPiezas->counter() ; ++i) {
          (*_lisPiezas)[i].setEstado(false);
-        this->incrementoDecremento(true,(*_lisPiezas)[i]);
+        this->incrementoDecremento(true,(&(*_lisPiezas)[i]));
     }
     _lisPiezas = new Lista<Pieza,-1>;
 }
@@ -83,16 +83,24 @@ bool Vehiculo::validarUso(string p){
 //Item----------------------------------------
 double Vehiculo::costo() {
     double pre = _precio;
-    for (int i = 0; i < _lisPiezas->counter() ; ++i) {
-        pre = pre + (*_lisPiezas)[i].getPrecio();
+    if(!_lisPiezas->emptyList()){
+        for (int i = 0; i < _lisPiezas->counter() ; ++i) {
+            pre = pre + (*_lisPiezas)[i].getPrecio();
+        }
     }
+
     return pre;
 }
 
 void Vehiculo::agregarDecoraciones(Pieza * item) {
     _lisPiezas->insertFirst(dynamic_cast<Pieza *>(item));
     dynamic_cast<Pieza *>(item)->setEstado(true);
-    this->incrementoDecremento(true, *item);
+    this->incrementoDecremento(true, item);
+
+
+    cout<< "Prueba de velocidad: "<< getVelocidad()<<endl;
+    cout<< "Prueba de velocidad: "<< _velocidad<<endl;
+    cout<< "Prueba de velocidad: "<< mostrarDecoraciones()<<endl;
 }
 
 string Vehiculo::mostrarDecoraciones()  {
@@ -109,34 +117,33 @@ string Vehiculo::mostrarDecoraciones()  {
     return s.str();
 }
 
-void Vehiculo::incrementoDecremento(bool incremento, Pieza& item) {
-    if(incremento){
-        if (typeid(item).name() == typeid(Motor).name()) {
-            this->setPotencia(this->_potencia + item.getPotencia());
+void Vehiculo::incrementoDecremento(bool incremento, Pieza* item) {
+    if (incremento) {
+        if (typeid(*item).name() == typeid(Motor).name()) {
+            this->setPotencia(this->_potencia + item->getPotencia());
         }
-        if (typeid(item).name() == typeid(Nitro).name()) {
-            this->setVelocidad(_velocidad + item.getVelocidad());
+        if (typeid(*item).name() == typeid(Nitro).name()) {
+            this->setVelocidad(_velocidad + item->getVelocidad());
         }
-        if (typeid(item).name() == typeid(Llantas).name()) {
-            _traccion = _traccion + item.getTraccion();
+        if (typeid(*item).name() == typeid(Llantas).name()) {
+            _traccion = _traccion + item->getTraccion();
         }
-
-    }else{
-        if (typeid(item).name() == typeid(Motor).name()) {
-            this->setPotencia(this->_potencia - item.getPotencia());
+    } else {
+        if (typeid(*item).name() == typeid(Motor).name()) {
+            this->setPotencia(this->_potencia - item->getPotencia());
         }
-        if (typeid(item).name() == typeid(Nitro).name()) {
-            this->setVelocidad(_velocidad - item.getVelocidad());
+        if (typeid(*item).name() == typeid(Nitro).name()) {
+            this->setVelocidad(_velocidad - item->getVelocidad());
         }
-        if (typeid(item).name() == typeid(Llantas).name()) {
-            _traccion = _traccion - item.getTraccion();
+        if (typeid(*item).name() == typeid(Llantas).name()) {
+            _traccion = _traccion - item->getTraccion();
         }
     }
 }
-void Vehiculo::quitarDecoraciones(string id) {
 
+void Vehiculo::quitarDecoraciones(string id) {
     _lisPiezas->search(id).setEstado(false);
-    incrementoDecremento(false, _lisPiezas->search(id));
+    incrementoDecremento(false, &_lisPiezas->search(id));
     _lisPiezas->deleteEspe(id);
 }
 

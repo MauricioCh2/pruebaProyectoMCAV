@@ -40,7 +40,7 @@ public:
     virtual void agregarDecoraciones(Pieza*);
     virtual string mostrarDecoraciones()  ;
     virtual void quitarDecoraciones(string id);
-    virtual void incrementoDecremento(bool, Pieza& item);
+    virtual void incrementoDecremento(bool, Pieza* item);
     virtual void setItem(Item*);
     virtual Item* getItem();
     virtual Item* getSiguiente();
