@@ -46,4 +46,6 @@ add_executable(pruebaProyectoMCAV main.cpp
         Controler/soloParaQueAparezcaCon.cpp
         Controler/soloParaQueAparezcaCon.h
         Controler/soloParaQueAparezcaCon.h
+        View/soloparaqueaparezcaview.cpp
+        View/soloparaqueaparezcaview.h
 )
