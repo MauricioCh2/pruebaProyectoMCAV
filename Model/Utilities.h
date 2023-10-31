@@ -29,18 +29,42 @@ using namespace std;
 #define GRAY    "\x1B[38;2;176;174;174m"
 #define RESET   "\x1b[0m"
 
-//Imprimir
+//Imprimir--------------------------------------------
 template<class T>
 void print(T t) {
     cout << t << "\x1B[37m" << endl;
 }
-//Recivir
+//Recivir---------------------------------------------
 string recivirString();
 string recivirStringN();//acepta unicamente strings numericos
 int recivirInt();
-//validar
+bool recivirBool();
+double recivirDouble();
+float recivirFloat();
+string recivirGetLine();
 
-//Otros
+//validar---------------------------------------------
+bool yesOrNo();
+template<class T>
+string validrExistID(T& lis){
+    string id = " ";
+    bool fin = false;
+    while (!fin) {
+        try{
+            id = recivirStringN();
+            if(lis.exist(id)) {
+                throw new Exceptions('e');
+            }
+            fin = true;
+            return id;
+        }catch (Exceptions* e){
+            print(e->what());
+        }
+
+    }
+    return " ";
+}
+//Otros-----------------------------------------------
 void enter();
 void clean();
 void clear();

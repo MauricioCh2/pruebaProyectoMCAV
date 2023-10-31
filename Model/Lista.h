@@ -29,7 +29,12 @@ public:
     virtual Nodo<T>* searchInPos(int); //Te da el elemento en la posicion n
     template <class U>
     bool search(U, T&); //Retorna el elemento em base a una identificacion o algo especial dpendiendo de su tipo
+    template <class U>
+    T& search(U);
+    template <class U>
+    bool exist(U);
     virtual bool deleteInPos(int);
+    template <class U> bool deleteEspe(U);
     virtual string toString();
     Nodo<T>* getFirst();
     Nodo<T>* getEnd();
@@ -188,9 +193,131 @@ bool Lista<T, tam>::search(U ident, T& temp) {
     }
     throw (Exceptions('L'));
 }
+template<class T, int tam>
+template<class U>
+T& Lista<T, tam>::search(U ident) {
+    if(emptyList()) {
+        throw (Exceptions('L'));
+    }
+    Nodo<T> actual1 = *_first;
+    Nodo<T> actual2 = *_end;
+    if(actual1.getNext() == nullptr && actual2.getPrev()== nullptr) {
+        if (*(actual1.getInfo()) == ident) {
+            return *actual1.getInfo();
+        }
+        if (*(actual2.getInfo()) == ident) {
+            return  *actual2.getInfo();
+        }
+    }
+    while (actual1.getNext() != nullptr && actual2.getPrev() != nullptr) {
+        if (*(actual1.getInfo()) == ident) {
+            return *actual1.getInfo();
+        }
+        if (*(actual2.getInfo()) == ident) {
+            return  *actual2.getInfo();
+            //return true;
+        }
+        actual1 = *actual1.getNext();
+        actual2 = *actual2.getPrev();
+    }
+    throw (Exceptions('L'));
+}
+template<class T, int tam>
+template<class U>
+bool Lista<T, tam>::exist(U ident) {
+    if(emptyList()){
+        return false;
+    }
+    Nodo<T> actual1 = *_first;
+    Nodo<T> actual2 = *_end;
+
+    if(actual1.getNext() == nullptr && actual2.getPrev()== nullptr){ // si hay un solo objeto
+        if (*(actual1.getInfo()) == ident) {
+            return true;
+        }
+        if (*(actual2.getInfo()) == ident) {
+            return true;
+        }
+        else {return false;}
+    }
+    while (actual1.getNext()->getNext() != nullptr && actual2.getPrev()->getPrev() != nullptr) {
+
+        if (*(actual1.getInfo()) == ident) {
+            return true;
+        }
+        if (*(actual2.getInfo()) == ident) {
+            return true;
+        }
+        if(actual1.getNext() != nullptr && actual2.getPrev() != nullptr  ){
+            actual1 = *actual1.getNext();
+            actual2 = *actual2.getPrev();
+        }else {return false;}
+
+    }
+    return false;
+}
 
 template<class T, int tam>
 bool Lista<T, tam>::deleteInPos(int pos ) {
+    return false;
+}
+template<class T, int tam>
+template <class U>
+bool Lista<T, tam>::deleteEspe(U ident){
+    Nodo<T>* pPrevr =  NULL;
+    Nodo<T>* pNext= NULL;
+    Nodo<T>* actual1 = _first;
+    Nodo<T>* actual2 = _end;
+    if(actual1 == NULL){
+        return false;
+    }
+    //Si el elemento esta de primero
+    if(actual1->getNext()==NULL&&actual2->getPrev()==NULL){
+        delete _first;
+        _first = NULL;
+        _end = NULL;
+        //delete _end;
+        return true;
+    }
+    if(*actual1->getInfo()== ident){
+        actual1 = actual1->getNext();
+        delete _first;
+        _first = actual1;
+        _first->setNext(actual1->getNext());
+        _first->setPrev(NULL);
+        return true;
+    }
+    // En caso de que fuera el ultimo
+    if(*actual2->getInfo()== ident){
+        actual2 = actual2->getPrev();
+        delete _end;
+        _end = actual2;
+        if(_end->getPrev()!=NULL) {
+            _end->setPrev(actual2->getPrev());
+            _end->getPrev()->setNext(_end);
+        }
+        _end->setNext(NULL);
+        return true;
+    }
+    //En el caso de que si aya que recorrer la lista
+    while (actual1->getNext() != nullptr && actual2->getPrev() != nullptr) {
+        if (*(actual1->getInfo()) == ident) {
+            pPrevr = actual1->getPrev();
+            pPrevr->setNext(actual1->getNext());
+            pNext = actual1->getNext();
+            pNext->setPrev(actual1->getPrev());
+            return true;
+        }
+        if (*(actual2->getInfo()) == ident) {
+            pPrevr = actual2->getPrev();
+            pPrevr->setNext(actual2->getNext());
+            pNext = actual2->getNext();
+            pNext->setPrev(actual2->getPrev());
+            return true;
+        }
+        actual1 = actual1->getNext();
+        actual2 = actual2->getPrev();
+    }
     return false;
 }
 

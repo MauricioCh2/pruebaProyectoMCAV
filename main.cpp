@@ -1,8 +1,8 @@
 #include <iostream>
-#include "Model/utilities.h"
-
+#include "Model/MenuControler.h"
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    MenuControler m;
+    m.inicio();
     enter();
     return 0;
 }
