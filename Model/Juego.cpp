@@ -130,3 +130,13 @@ bool Juego::validarUso() {
     _jugador->getListaPieza();
     return false;
 }
+
+bool Juego::guardarAlSalir() {
+    ofstream ofVehiculo("lisVehiculos.txt");
+    Archivos<Lista<Vehiculo,-1>, Vehiculo> archVehi;
+    if(!_jugador->getListaVehiculo()->emptyList()) {
+        archVehi.guardarDatos(*_jugador->getListaVehiculo(), ofVehiculo);
+        return true;
+    }
+    return false;
+}

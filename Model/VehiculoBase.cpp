@@ -181,14 +181,46 @@ bool Vehiculo::operator!=(const string& id) const {
 }
 
 Vehiculo * Vehiculo::cargaDatos(Json::Value objeto) {
+
+    Lista<Pieza,-1>* lisAux = new Lista<Pieza,-1>;
+
+    Vehiculo* vehiculo = nullptr;
     string ident = objeto["ID"].asString();
     string nombre = objeto["Nombre"].asString();
     double precio = objeto["Precio"].asDouble();
     float traccion = objeto["Traccion"].asFloat();
     float velocidad = objeto["Velocidad"].asFloat();
     float potencia = objeto["Potencia"].asFloat();
+    vehiculo = new Vehiculo(ident, nombre, precio, traccion, velocidad, potencia);
+        Json::Value piezasJson = objeto["Piezas"];
+//        ifstream ofveh ("lisVehiculos.txt");
+//        Archivos<Lista<Pieza,-1>, Pieza> arch;
+//        lisAux = arch.cargarDatosPieza(ofveh);
+
+        for (int i = 0; i < piezasJson.size(); ++i) {
+            Json::Value objetoActual = piezasJson[i];
+            string tipoPieza = objetoActual["Tipo"].asString();
+            Motor *nuevaMotor = new Motor(" ");
+            Nitro *nuevaNitro = new Nitro(" ");
+            Llantas *nuevaLLanta = new Llantas(" ");
+            if (tipoPieza == "Motor") {
+                nuevaMotor = dynamic_cast<Motor *>(nuevaMotor->cargaDatos(objetoActual));
+                lisAux->insertEnd(nuevaMotor);
+                //vehiculo->agregarDecoraciones();
+            } else if (tipoPieza == "Nitro") {
+                nuevaNitro = dynamic_cast<Nitro *>(nuevaNitro->cargaDatos(objetoActual));
+                lisAux->insertEnd(nuevaNitro);
+            } else if (tipoPieza == "Llanta") {
+                nuevaLLanta = dynamic_cast<Llantas *>(nuevaLLanta->cargaDatos(objetoActual));
+                lisAux->insertEnd(nuevaLLanta);
+            } // Supongamos que tienes un método cargaDatos en la clase Pieza
+
+        }
+    for(int i=0; i <lisAux->counter(); i++){
+        vehiculo->agregarDecoraciones(&(*lisAux)[i]);
+    }
     //hay que ver lo de la lista
-    return new Vehiculo(ident, nombre, precio, traccion, velocidad, potencia);
+    return vehiculo;
 
 }
 
@@ -201,6 +233,14 @@ Json::Value Vehiculo::salvaDatos(Item &veh) {
     event["Velocidad"] = veh.getVelocidad();
     event["Potencia"] = veh.getPotencia();
 
+    // agregamos piezas en caso de ser necesario
+    if(!getListaPiezas()->emptyList()){
+        Json::Value piezasJson(Json::arrayValue);
+        for (int i = 0; i < _lisPiezas->counter(); ++i) {
+            piezasJson.append((*_lisPiezas)[i].salvaDatos((*_lisPiezas)[i]));
+        }
+        event["Piezas"] = piezasJson;
+    }
     return event;
 }
 

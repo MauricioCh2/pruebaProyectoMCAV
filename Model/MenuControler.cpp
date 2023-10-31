@@ -200,7 +200,7 @@ bool MenuControler::llamarMenus() {
         case 4:
             clean();
             print("Buen dia...");
-            //archivos en caso de guardar al final
+            _juego->guardarAlSalir();
             delete _juego;
             exit(0);
             return true;
@@ -255,7 +255,7 @@ Jugador* MenuControler::crearJugador() {
             can --;
         }
         JugTemp->setListaVehiculos(listaV);
-       archVe.guardarDatos((*listaV), carVe);
+        archVe.guardarDatos((*listaV), carVe);
    }
 
     Lista<Pieza,-1>* listaP = new Lista<Pieza,-1>;
@@ -337,7 +337,6 @@ if(idPieza == "salir"){
 return false;
 }
 try {
-
 
 if(_juego->getListaPiezasDeVehiculo(&veh).exist(idPieza)) {
 //if(!veh.validarUso(idPieza)){
@@ -431,5 +430,7 @@ bool MenuControler::modifiarVehiculo() {
     }
     return false;
 }
+
+
 
 
