@@ -100,16 +100,18 @@ bool Motor::operator!=(const string& id) const {
 }
 
 Item *Motor::cargaDatos(Json::Value objeto) {
+
     string ident = objeto["ID"].asString();
     string nombre = objeto["Nombre"].asString();
     double precio = objeto["Precio"].asDouble();
     float potencia = objeto["Potencia"].asFloat();
     bool estado = objeto["Estado"].asBool();
-    return new Motor(ident, nombre, precio, potencia);
+    return new Motor(nombre, ident, precio, potencia);
 }
 
 Json::Value Motor::salvaDatos(Item &veh) {
     Json::Value event;
+    event["Tipo"] = "Motor";
     event["ID"] = veh.getId();
     event["Nombre"] = veh.getNombre();
     event["Precio"] = veh.getPrecio();

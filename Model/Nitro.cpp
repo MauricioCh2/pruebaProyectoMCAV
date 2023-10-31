@@ -101,11 +101,12 @@ Item *Nitro::cargaDatos(Json::Value objeto) {
     double precio = objeto["Precio"].asDouble();
     float velocidad = objeto["Velocidad"].asFloat();
     bool estado = objeto["Estado"].asBool();
-    return new Nitro( ident, nombre, precio, velocidad);
+    return new Nitro( nombre, ident, precio, velocidad);
 }
 
 Json::Value Nitro::salvaDatos(Item &veh) {
     Json::Value event;
+    event["Tipo"] = "Nitro";
     event["ID"] = veh.getId();
     event["Nombre"] = veh.getNombre();
     event["Precio"] = veh.getPrecio();

@@ -119,20 +119,36 @@ void Lista<T, tam>::insertEnd (T* t) {
 }
 template<class T, int tam>
 bool Lista<T, tam>::deleteEnd() {
-    Nodo<T>* actual = _first;
-    if(_end == nullptr){
-        return false;
+//    Nodo<T>* actual = _first;
+//    if(_end == nullptr){
+//        return false;
+//    }
+//    else{
+//        while(_end->getPrev()!=nullptr){
+//            actual= _end;
+//            delete actual;
+//            _end = _end->getPrev();
+//        }
+//        if(_end->getPrev()==nullptr){
+//            delete _end;
+//            _end= nullptr;
+//        }
+//    }
+//    return true;
+    if (_end == nullptr) {
+        return false; // La lista está vacía, no hay nada que eliminar.
     }
-    else{
-        while(_end->getPrev()!=nullptr){
-            actual= _end;
-            delete actual;
-            _end = _end->getPrev();
-        }
-        if(_end->getPrev()==nullptr){
-            delete _end;
-            _end= nullptr;
-        }
+    else if (_end->getPrev() == nullptr) {
+        delete _end;
+        _end = nullptr;
+        _first = nullptr; // También debes establecer _first en nullptr si la lista queda vacía.
+    }
+    else {
+        Nodo<T>* prevToEnd = _end->getPrev();
+        delete _end;
+        _end = prevToEnd;
+        _end->setNext(nullptr); // Asegúrate de que el nuevo último nodo apunte a nullptr.
+
     }
     return true;
 }
