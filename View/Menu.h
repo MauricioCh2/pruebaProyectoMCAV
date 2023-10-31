@@ -8,7 +8,8 @@
 
 
 class Menu {
-
+public:
+    int cambio;
 };
 
 
