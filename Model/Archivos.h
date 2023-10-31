@@ -23,6 +23,7 @@ public:
     }
     void guardarDatos(T&, ofstream&);
     Lista<U,-1>* cargarDatos(ifstream&);
+    Lista<U,-1>* cargarDatosPieza(ifstream&);
 };
 
 template<class T, class U>
