@@ -43,4 +43,7 @@ add_executable(pruebaProyectoMCAV main.cpp
         Model/VehiculoBase.h
         Model/Pieza.cpp
         Model/Pieza.h
+        Controler/soloParaQueAparezcaCon.cpp
+        Controler/soloParaQueAparezcaCon.h
+        Controler/soloParaQueAparezcaCon.h
 )
