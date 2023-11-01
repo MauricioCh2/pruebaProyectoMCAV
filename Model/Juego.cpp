@@ -150,5 +150,10 @@ bool Juego::guardarAlSalir() {
     if(!_tienda->getLista()->emptyList()){
         archPieza.guardarDatos(*_tienda->getLista(),ofTienda);
     }
+    ofstream ofPiezaVeh("lisPiezaVehiculo.txt");
+    Archivos<Lista<Pieza,-1>, Pieza> archPV;
+    if(!_tienda->getLista()->emptyList()){
+        archPV.guardarDatos(*_jugador->getListaPieza(),ofPiezaVeh);
+    }
     return true;
 }
