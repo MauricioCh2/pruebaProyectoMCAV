@@ -3,87 +3,37 @@
 //
 
 #include "VehiculoBase.h"
+
 Vehiculo::Vehiculo(string id, string nombre, double precio, float traccion, float velocidad, float potencia)
         : Item(id, nombre, precio, traccion, velocidad, potencia) {
         _lisPiezas = new Lista<Pieza,-1>;
 }
 
-//VehiculoBase::VehiculoBase() {
-//    this->cont = 0;
-//}
 
-
-//ITEM---------------------------------------------------------------
-const string &Vehiculo::getId() const {
-    return _id;
+Vehiculo::~Vehiculo() {
+     if(_lisPiezas!= nullptr) delete _lisPiezas;
 }
-
-void Vehiculo::setId(const string &id) {
-    _id = id;
-}
-
-const string &Vehiculo::getNombre() const {
-    return _nombre;
-}
-
-void Vehiculo::setNombre(const string &nombre) {
-    _nombre = nombre;
-}
-
-double Vehiculo::getPrecio() const {
-    return _precio;
-}
-
-void Vehiculo::setPrecio(double precio) {
-    _precio = precio;
-}
-
-float Vehiculo::getTraccion() const {
-    return _traccion;
-}
-
-void Vehiculo::setTraccion(float traccion) {
-    _traccion = traccion;
-}
-
-//float Vehiculo::getVelocidad() const {
-//    return _velocidad;
-//}
-
-//void Vehiculo::setVelocidad(float velocidad) {
-//    _velocidad = velocidad;
-//}
-
-float Vehiculo::getPotencia() const {
-    return _potencia;
-}
-
-void Vehiculo::setPotencia(float potencia) {
-    _potencia = potencia;
-}
-
-//Vehiculo----------------------------------------------------------
 Lista<Pieza,-1>* Vehiculo::getListaPiezas(){
     return _lisPiezas;
 }
+
 void Vehiculo::quitarTodasLasDecos(){
 
-    for (int i = 0; i < _lisPiezas->counter() ; ++i) {
-         (*_lisPiezas)[i].setEstado(false);
-        this->incrementoDecremento(true,(&(*_lisPiezas)[i]));
-        //_lisPiezas->deleteEspe((*_lisPiezas)[i].getId());
-        _lisPiezas->deleteEnd();
+    for (int i = 0; i < _lisPiezas->counter() ; ++i) {     //Recorre la lista piezas
+         (*_lisPiezas)[i].setEstado(false);                //Cambia/Setea el estado de la pieza a falso, lo que indica que ya no esta disponible.
+        this->incrementoDecremento(true,(&(*_lisPiezas)[i]));  //Llama al metodo incremento/decremento
+        _lisPiezas->deleteEnd();  //Borra la lista iniciando desde el final
     }
-    _lisPiezas = new Lista<Pieza,-1>;
+    _lisPiezas = new Lista<Pieza,-1>;  //Crea una nueva lista de piezas vacía y la asigna a _lisPiezas
 }
-bool Vehiculo::validarUso(string p){
+bool Vehiculo::validarUso(string p){        //Verifica si la pieza esta siendo usada o no
     if(!_lisPiezas->exist(p)){
         return false;
     }
     return  _lisPiezas->search(p).getEstado();
 }
 //Item----------------------------------------
-double Vehiculo::costo() {
+double Vehiculo::costo() {    //Este método calcula el precio total del vehiculo, con todas las decoraciones
     double pre = _precio;
     if(!_lisPiezas->emptyList()){
         for (int i = 0; i < _lisPiezas->counter() ; ++i) {
@@ -94,18 +44,13 @@ double Vehiculo::costo() {
     return pre;
 }
 
-void Vehiculo::agregarDecoraciones(Pieza * item) {
-    _lisPiezas->insertFirst(dynamic_cast<Pieza *>(item));
-    dynamic_cast<Pieza *>(item)->setEstado(true);
+void Vehiculo::agregarDecoraciones(Pieza * item) { //Agrega las piezas.
+    _lisPiezas->insertFirst(dynamic_cast<Pieza *>(item)); //Usa el operador dynamic_cast para convertir el puntero item al tipo Pieza* e insertarlo a la lista piezas
+    dynamic_cast<Pieza *>(item)->setEstado(true); //Setea el estado a verdadero
     this->incrementoDecremento(true, item);
-
-
-   //cout<< "Prueba de velocidad: "<< getVelocidad()<<endl;
-    //cout<< "Prueba de velocidad: "<< _velocidad<<endl;
-    //cout<< "Prueba de velocidad: "<< mostrarDecoraciones()<<endl;
 }
 
-string Vehiculo::mostrarDecoraciones()  {
+string Vehiculo::mostrarDecoraciones()  {  //Devuelve la informacion del vehiculo con sus decoraciones/Piezas (Lista).
     stringstream s;
     s << "-----------------------------------------------------------------------------------------------------------------"<< endl;
     s << "Modelo: " << this->getNombre() << "\nID: " << this->getId() <<"\tPrecio: " <<this->costo() << "\tTraccion: " << this->getTraccion()<< "\tVelocidad: " << this->getVelocidad()<< "\tPotencia: " << this->getPotencia()  << endl;
@@ -114,7 +59,7 @@ string Vehiculo::mostrarDecoraciones()  {
         s << _lisPiezas->toString();
     }
     else{
-        s <<"Este vehiculo no cuenta con modificacioes";
+        s <<"Este vehiculo no cuenta con modificacioes";   //Si la lista esta vacia muestra este mensaje
     }
     return s.str();
 }
@@ -143,10 +88,10 @@ void Vehiculo::incrementoDecremento(bool incremento, Pieza* item) {
     }
 }
 
-void Vehiculo::quitarDecoraciones(string id) {
-    _lisPiezas->search(id).setEstado(false);
-    incrementoDecremento(false, &_lisPiezas->search(id));
-    _lisPiezas->deleteEspe(id);
+void Vehiculo::quitarDecoraciones(string id) {  //Este metodo elimina las decoraciones/Piezas de un vehiculo
+    _lisPiezas->search(id).setEstado(false); //Busca con el "id" y setea el estado a "False",el objeto devuelto es una referencia a la pieza correspondiente.
+    incrementoDecremento(false, &_lisPiezas->search(id));  //Actualiza el número de piezas en el vehículo.
+    _lisPiezas->deleteEspe(id);  //Elimina la pieza con ese identificador
 }
 
 void Vehiculo::setItem(Item * v) {
@@ -167,13 +112,6 @@ int Vehiculo::getContador() {
     return 0;
 }
 
-//ostream &operator<<(ostream &os, const Item &Item){
-//    os << "-----------------------------------------------------------------------------------------------------------------"<< endl;
-//    os << "\tModelo: " << Item.getNombre() << "\nID: " << Item.getId() <<"\tPrecio: " <<Item.getPrecio() << "\tTraccion: " << Item.getTraccion()<< "\tVelocidad: " << Item.getVelocidad()<< "\tPotencia: " << Item.getPotencia()  << endl;
-//    os << "Piezas: "<< endl;
-//
-//    return os;
-//}
 bool Vehiculo::operator==(const string& id) const {
     return this->_id == id;
 }
@@ -213,14 +151,13 @@ Vehiculo * Vehiculo::cargaDatos(Json::Value objeto) {
             } else if (tipoPieza == "Llanta") {
                 nuevaLLanta = dynamic_cast<Llantas *>(nuevaLLanta->cargaDatos(objetoActual));
                 lisAux->insertEnd(nuevaLLanta);
-            } // Supongamos que tienes un método cargaDatos en la clase Pieza
+            }
 
         }
     for(int i=0; i <lisAux->counter(); i++){
         (*lisAux)[i].setEstado(true);
         vehiculo->agregarDecoraciones(&(*lisAux)[i]);
     }
-   // hay que ver lo de la lista
     return vehiculo;
 
 }
@@ -244,6 +181,7 @@ Json::Value Vehiculo::salvaDatos(Item &veh) {
     }
     return event;
 }
+
 
 
 

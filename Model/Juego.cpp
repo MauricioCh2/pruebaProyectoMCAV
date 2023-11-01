@@ -4,11 +4,6 @@
 
 #include "Juego.h"
 
-//Juego::Juego(bool op) {
-//    if(op){
-//        //llamar a metodo de creacion de jugador que se encuentra aqui
-//    }
-//}
 Juego::Juego(Jugador* j){
     _tienda = new Tienda();
      _jugador = j;
@@ -19,6 +14,12 @@ Juego::Juego(Jugador* j){
      _listaPiezaTienda = "lisPiezaTienda";
 }
 
+Juego::~Juego() {
+     if(_tienda != nullptr) delete _tienda;
+     if(_jugador != nullptr) delete _jugador;
+}
+
+
 Jugador *Juego::recuperarJugador() {
     //recupera jugador
     Lista<Jugador,-1> tempL;
@@ -27,7 +28,6 @@ Jugador *Juego::recuperarJugador() {
     Jugador* jug = tempL.getFirst()->getInfo();
 
     //recupera vehiculo
-    //Lista<Vehiculo,-1>  listaV;
     ifstream carVe ("lisVehiculos.txt");
     Archivos<Lista<Vehiculo, -1>, Vehiculo> archVe;
     if(!carVe.fail()) {

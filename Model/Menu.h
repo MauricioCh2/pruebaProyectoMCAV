@@ -11,15 +11,9 @@ public:
     Menu();
     string menuInicio();
     string menuPrincipal();
-
     string menuJugador();
-
     string subMenuModVehiculos();
-
-    string tienda();
     string develop();
-
-
 };
 
 

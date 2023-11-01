@@ -7,7 +7,7 @@
 #include"Lista.h"
 #include "Archivos.h"
 
-class Tienda {
+class Tienda {   //Es una lista de piezas
 private:
     Lista <Pieza,-1>*ptrP;
 public:
@@ -18,8 +18,5 @@ public:
 
     void ingresarPiezasTienda(Pieza*);
     string mostrarPiezas();
-    void mostrarPiezaEspecifica(string); //***//
     void eliminarPiezas(string);
-
-  //  void comprar(Lista<Pieza, -1>& lista, int numero, double precio);
 };

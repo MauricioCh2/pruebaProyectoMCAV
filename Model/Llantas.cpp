@@ -22,37 +22,7 @@ Llantas::Llantas(string nombre , string ident , double precio, float traccion) {
     this->utilizada = false;
 }
 Llantas::~Llantas() {}
-//ITEM----------------------------------------
-const string &Llantas::getId() const {
-    return Pieza::getId();
-}
 
-void Llantas::setId(const string &id) {
-    Pieza::setId(id);
-}
-
-const string &Llantas::getNombre() const {
-    return Pieza::getNombre();
-}
-
-void Llantas::setNombre(const string &nombre) {
-    Pieza::setNombre(nombre);
-}
-
-double Llantas::getPrecio() const {
-    return Pieza::getPrecio();
-}
-
-void Llantas::setPrecio(double precio) {
-    Pieza::setPrecio(precio);
-}
-
-void Llantas::setTraccion(float traccion) {
-    Pieza::setVelocidad(traccion);
-}
-float Llantas::getTraccion()const {
-    return _traccion;
-}
 //Item-----------------------------------------------
 double Llantas::costo() {
     return this->ptrItem->costo() + this->_precio;
@@ -71,20 +41,10 @@ string Llantas::mostrarDecoraciones()   {
 }
 
 
-
-
-//void Llantas::incrementoDecremento(bool incremento) {
-//
-//}
-
 int Llantas::getContador() {
     return 0;
 }
-//ostream &operator<<(ostream &os, const Item &Item){
-//    os << "\tLlantas: " << Item.getNombre() << "\nID: " << Item.getId() <<"\tPrecio: " <<Item.getPrecio() << "\tMejora en traccion: " << Item.getTraccion()<< endl;
-//    os << "Piezas: "<< endl;
-//    return os;
-//}
+
 bool Llantas::operator==(const string& id) const {
     return this->_id == id;
 }
@@ -111,33 +71,6 @@ Json::Value Llantas::salvaDatos(Item &veh) {
     event["Precio"] = veh.getPrecio();
     event["Traccion"] = veh.getTraccion();
     return event;
-}
-//Llantas::Llantas(const string nombre, float traccion) :Item(){
-//    this->nombre = nombre;
-//    this->traccion = traccion;
-//}
-//Llantas::~Llantas() {}
-//
-//const string Llantas::getNombre2() const {
-//    return nombre;
-//}
-//
-//void Llantas::setNombre2(const string nombre) {
-//    Llantas::nombre = nombre;
-//}
-//
-//const float Llantas::getTraccion2() const {
-//    return traccion;
-//}
-//
-//void Llantas::setTraccion2(const float traccion)  {
-//    this->traccion = traccion;
-//}
-void Llantas::mejorarTraccion() {
-//    float factor = 1.3;
-//    float traccionActual = this->getTraccion2();
-//    float nuevaTraccion = traccionActual * factor;
-//    this->setTraccion2(nuevaTraccion);
 }
 
 ostream &operator<<(ostream &os, const Llantas &llantas) {

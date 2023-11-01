@@ -4,7 +4,6 @@
 
 #include "Jugador.h"
 
-
 Jugador::Jugador() {
     _id = "1";
     _nombre = "1";
@@ -17,8 +16,8 @@ Jugador::Jugador(const string id, const string nombre, double dinero) : _id(id),
 }
 
 Jugador::~Jugador() {
-//if(ptrV!=NULL)
-//delete ptrV;
+       if(_lisVehiculo != nullptr) delete _lisVehiculo;
+       if(_lisPiezas != nullptr) delete _lisPiezas;
 }
 
 const string Jugador::getId() const {
@@ -99,6 +98,7 @@ bool Jugador::operator==(const string& id) const {
 bool Jugador::operator!=(const string& id) const {
     return (this->_id != id);
 }
+
 //Archivos
 Jugador *Jugador::cargaDatos(Json::Value objeto) {
     string ident = objeto["ID"].asString();
@@ -123,13 +123,12 @@ void Jugador::cargarLista() {
     //this->setLista();
 }
 
-void Jugador::agregarPiezaTienda(Pieza*p) {
+//TIENDA
+void Jugador::agregarPiezaTienda(Pieza*p) {    //Ingresa pieza de tienda, para vincularlo a un jugador
     _lisPiezas->insertEnd(p);
-
-
 }
 
-void Jugador::rebajoDeDinero(double pre) {
+void Jugador::rebajoDeDinero(double pre) {   //Resta el dinero qie tiene el jugador con el valor de la precia a comprar, al final lo setea.
     setDinero((getDinero()-pre));
 }
 
