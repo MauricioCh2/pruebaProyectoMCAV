@@ -100,11 +100,12 @@ Item *Llantas::cargaDatos(Json::Value objeto) {
     float traccion = objeto["Traccion"].asFloat();
     bool estado = objeto["Estado"].asBool();
     //hay que ver lo de la lista
-    return new Llantas(ident, nombre, precio, traccion);
+    return new Llantas(nombre, ident, precio, traccion);
 }
 
 Json::Value Llantas::salvaDatos(Item &veh) {
     Json::Value event;
+    event["Tipo"] = "Llanta";
     event["ID"] = veh.getId();
     event["Nombre"] = veh.getNombre();
     event["Precio"] = veh.getPrecio();

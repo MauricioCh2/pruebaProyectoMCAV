@@ -9,17 +9,6 @@
 //        //llamar a metodo de creacion de jugador que se encuentra aqui
 //    }
 //}
-
-Juego::Juego() {
-    _tienda = new Tienda();
-    _jugador = new Jugador();
-    _infoJug = "infoJugador.txt";
-    _listaVehiculo = "lisVehiculos.txt";
-    _listaVehiculoDefecto = "lisVehiculosDefecto.txt" ;
-    _listaPieza = "lisPiezaVehiculo.txt";
-    _listaPiezaTienda = "lisPiezaTienda";
-}
-
 Juego::Juego(Jugador* j){
     _tienda = new Tienda();
      _jugador = j;
@@ -44,36 +33,37 @@ Jugador *Juego::recuperarJugador() {
     if(!carVe.fail()) {
         jug->setListaVehiculos(archVe.cargarDatos(carVe));
     }
-    Lista<Pieza,-1> listaP;
+
+    Lista<Pieza,-1>* listaP = new Lista<Pieza,-1>;
     ifstream fpieza ("lisPiezaVehiculo.txt");
     Archivos<Lista<Pieza,-1>, Pieza> archP;
-
-    //jug->setListaPieza(archP.cargarDatos(fpieza));
+    listaP = archP.cargarDatosPieza(fpieza);
+    jug->setListaPieza(listaP);
 
 //--------------------------------------------------------------------------------------------------------BORRAR-----------
  //pieza ("nombre", "ID", precio, float )
-    Pieza* piezaQ1 = new Motor("interno","M1", 1700, 25);
-    Pieza* piezaQ2 = new Motor("alto rendimiento","M2", 2300, 50);
-    Pieza* piezaQ3 = new Llantas(" AA alta traccion","Ll1", 220, 80);
-    Pieza* piezaQ4 = new Llantas(" B traccion normal","Ll2", 1100, 45);
-    Pieza* piezaQ5 = new Llantas(" C traccion baja","Ll3", 600, -10);
-    Pieza* piezaQ6 = new Nitro(" Basico","N1", 1000, 30);
-    Pieza* piezaQ7 = new Nitro(" intermedio","N2", 1500, 20);
-    Pieza* piezaQ8 = new Nitro(" Altro rendimiento","N3", 2000, 30);
-    Lista<Pieza, -1>* lisPQ = new Lista<Pieza, -1>;
-    lisPQ->insertEnd(piezaQ1);
-    lisPQ->insertEnd(piezaQ2);
-    lisPQ->insertEnd(piezaQ3);
-    lisPQ->insertEnd(piezaQ4);
-    lisPQ->insertEnd(piezaQ5);
-    lisPQ->insertEnd(piezaQ6);
-    lisPQ->insertEnd(piezaQ7);
-    lisPQ->insertEnd(piezaQ8);
-    ofstream piezas ("lisPiezas.txt");
-    Archivos<Lista<Pieza, -1>,Pieza> archPiezas;
-    archPiezas.guardarDatos(*lisPQ,piezas);
+//    Pieza* piezaQ1 = new Motor("interno","M1", 1700, 25);
+//    Pieza* piezaQ2 = new Motor("alto rendimiento","M2", 2300, 50);
+//    Pieza* piezaQ3 = new Llantas(" AA alta traccion","Ll1", 220, 80);
+//    Pieza* piezaQ4 = new Llantas(" B traccion normal","Ll2", 1100, 45);
+//    Pieza* piezaQ5 = new Llantas(" C traccion baja","Ll3", 600, -10);
+//    Pieza* piezaQ6 = new Nitro(" Basico","N1", 1000, 30);
+//    Pieza* piezaQ7 = new Nitro(" intermedio","N2", 1500, 20);
+//    Pieza* piezaQ8 = new Nitro(" Altro rendimiento","N3", 2000, 30);
+//    Lista<Pieza, -1>* lisPQ = new Lista<Pieza, -1>;
+//    lisPQ->insertEnd(piezaQ1);
+//    lisPQ->insertEnd(piezaQ2);
+//    lisPQ->insertEnd(piezaQ3);
+//    lisPQ->insertEnd(piezaQ4);
+//    lisPQ->insertEnd(piezaQ5);
+//    lisPQ->insertEnd(piezaQ6);
+//    lisPQ->insertEnd(piezaQ7);
+//    lisPQ->insertEnd(piezaQ8);
 
-    jug->setListaPieza(lisPQ);
+
+    //ofstream piezas ("lisPiezaVehiculo.txt");
+    //archP.guardarDatos(listaP,piezas);
+    //jug->setListaPieza(&listaP);
 
     return jug;
 }
@@ -174,3 +164,13 @@ void Juego::agregarPiezaTienda(Pieza* p) {
        _jugador->agregarPiezaTienda(p);
 }
 
+
+bool Juego::guardarAlSalir() {
+    ofstream ofVehiculo("lisVehiculos.txt");
+    Archivos<Lista<Vehiculo,-1>, Vehiculo> archVehi;
+    if(!_jugador->getListaVehiculo()->emptyList()) {
+        archVehi.guardarDatos(*_jugador->getListaVehiculo(), ofVehiculo);
+        return true;
+    }
+    return false;
+}

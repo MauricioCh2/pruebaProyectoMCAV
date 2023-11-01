@@ -2,11 +2,11 @@
 // Created by mauri on 24/10/2023.
 //
 
-#pragma once
-#include"Tienda.h"
+#ifndef PRUEBAPROYECTOMCAV_JUEGO_H
+#define PRUEBAPROYECTOMCAV_JUEGO_H
+#include "Tienda.h"
 #include "Jugador.h"
 #include "Archivos.h"
-
 class Juego {
 private:
     Tienda*_tienda;
@@ -18,7 +18,6 @@ private:
     string _listaPieza;
     string _listaPiezaTienda;
 public:
-    Juego();
     Juego(Jugador*);
     Jugador* recuperarJugador();
     //Jugador-----------------------------------------
@@ -44,13 +43,17 @@ public:
     //Utiles------------------------------------------
     Pieza* buscarPiezaJugador(string);
     Vehiculo* buscarVehiculoJugador(string);
+
+
     //Tienda
     void ingresarListaTienda(Pieza*);
     string mostrarPiezasTienda();
     void eliminarPiezasTienda(string);
     Lista<Pieza,-1>*getListaTiendaPiezas();
     Tienda*getTienda();
+
+    bool guardarAlSalir();
 };
 
 
-
+#endif //PRUEBAPROYECTOMCAV_JUEGO_H
