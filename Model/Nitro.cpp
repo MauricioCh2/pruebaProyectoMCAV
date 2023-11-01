@@ -3,27 +3,12 @@
 //
 
 #include "Nitro.h"
-
-Nitro::Nitro() {
-    nombre="";
-}
-//Nitro::Nitro(string nombre, float velocidad) :  Item() {
-//    this-> nombre = nombre;
-//    this->velocidad = velocidad;
-//}
-Nitro::Nitro(Item* v) {
-    this->ptrItem = v;
-    //this->cont= this->ptrItem->getContador()+1;
-}
 Nitro::Nitro(string nombre , string ident , double precio, float velocidad ) {
-    //this->ptrItem = v;
-    //this->cont= this->ptrItem->getContador()+1;
     this->_nombre = nombre;
     this->_id = ident;
     this->_precio = precio;
     this->_velocidad = velocidad;
     this->utilizada = false;
-
 }
 Nitro::~Nitro() {}
 //ITEM----------------------------------------
@@ -50,43 +35,15 @@ double Nitro::getPrecio() const {
 void Nitro::setPrecio(double precio) {
     Pieza::setPrecio(precio);
 }
-//float Nitro::getVelocidad() const {
-//    return _velocidad;
-//}
-//void Nitro::setVelocidad(float velocidad) {
-//    Pieza::setVelocidad(velocidad);
-//}
-
-double Nitro::costo() {
-    return this->ptrItem->costo() + this->_precio;
-}
-
-void Nitro::agregarDecoraciones(Item *) {
-
-}
 
 string Nitro::mostrarDecoraciones()   {
     stringstream s;
-    //s << this->ptrItem->mostrarDecoraciones() << endl;
     s <<"\t-Nitro: " << getNombre() << "\n\tID: " << getId() <<"\tPrecio: " <<getPrecio() << "\tMejora en Velocidad: " << getVelocidad()<< " Estado: ";
     this->getEstado() ? s<< YELLOW"Usado" << RESET: s << "Disponible"; //condicion ? exprecion1 : condicion2 (es otra forma de usar if)
     s << endl;
     return s.str();
 }
 
-//void Nitro::incrementoDecremento(bool) {
-//
-//}
-
-int Nitro::getContador() {
-    return 0;
-}
-
-//ostream &operator<<(ostream &os, const Item &Item){
-//    os << "\t-Nitro: " << Item.getNombre() << "\nID: " << Item.getId() <<"\tPrecio: " <<Item.getPrecio() << "\tMejora en Velocidad: " << Item.getVelocidad()<< endl;
-//
-//    return os;
-//}
 bool Nitro::operator==(const string& id) const {
     return this->_id == id;
 }
@@ -115,33 +72,4 @@ Json::Value Nitro::salvaDatos(Item &veh) {
     return event;
 }
 
-void Nitro::mejorarVelocidad() {
-
-}
-//const string Nitro::getNombre2() const {
-//    return nombre;
-//}
-//
-//void Nitro::setNombre2(const string nombre) {
-//    this->nombre = nombre;
-//}
-//
-//void Nitro::setVelocidad2(const float velocidad) {
-//    this->velocidad=velocidad;
-//}
-//
-//const float Nitro::getVelocidad2() const {
-//    return velocidad;
-//}
-//
-//void Nitro::mejorarVelocidad() {
-//    float valorNitro = 1.2;
-//    float velocidadActual = this->getVelocidad2();
-//    float nuevaVelocidad = velocidadActual * valorNitro;
-//    this->setVelocidad2(nuevaVelocidad);
-//}
-//ostream &operator<<(ostream &os, const Nitro *nitro) {
-//    os <<  " nombre: " << nitro->_nombre << "Velocidad mejorada: " << nitro->getVelocidad2();
-//    return os;
-//}
 

@@ -97,7 +97,7 @@ Pieza *Juego::buscarPiezaJugador(string id) {
     return &(_jugador->getListaPieza()->search(id));
 }
 
-Vehiculo *Juego::buscarVehiculoJugador(string id ) {
+Vehiculo* Juego::buscarVehiculoJugador(string id ) {
     return &_jugador->getListaVehiculo()->search(id);
 }
 

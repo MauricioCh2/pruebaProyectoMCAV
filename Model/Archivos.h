@@ -19,28 +19,30 @@ class Archivos {
 private:
 
 public:
-    Archivos() {}
-
-    virtual ~Archivos() {
-
-    }
+    Archivos();
+    virtual ~Archivos();
     void guardarDatos(T&, ofstream&);
     Lista<U,-1>* cargarDatos(ifstream&);
     Lista<U,-1>* cargarDatosPieza(ifstream&);
 };
+template<class T, class U>
+Archivos<T,U>::Archivos(){
 
+}
+template<class T, class U>
+Archivos<T,U>::~Archivos(){
+
+}
 template<class T, class U>
 void Archivos<T, U>::guardarDatos(T& lis, ofstream& salida) {//Recorre la lista para guardar cada dato de esta
     Json::StreamWriterBuilder builder;
     builder["commentStyle"]= "None";
     builder["identation"]= "    ";
-
     std::unique_ptr<Json::StreamWriter> writer (builder.newStreamWriter());//construyo un flujo de datos para escritura
-    //Json::Value event;
     Json:: Value arreglo(Json::arrayValue);
     for (int i = 0; i <lis.counter() ; ++i)
     {
-        arreglo.append(((lis[i]).salvaDatos(lis[i])));
+        arreglo.append(((lis[i]).salvaDatos(lis[i])));//llama cada salvar datos
     }
     writer->write(arreglo,&salida );
     salida.close();
@@ -52,10 +54,8 @@ Lista<U,-1>* Archivos<T, U>::cargarDatos(ifstream& entrada) { //carga cualquier 
     Json::Value objetos;
     Json::Reader reader;
     reader.parse(entrada, objetos);
-
         for (int i = 0; i < objetos.size(); ++i) {
             Json::Value objetoActual = objetos[i];
-            //string tipoPieza = objetoActual["Tipo"].asString();
             if(!entrada.bad()) {
                 if (temp->cargaDatos(objetos[i]) != NULL) {
                     temp = temp->cargaDatos(objetos[i]);
@@ -84,6 +84,7 @@ Lista<U,-1>* Archivos<T, U>::cargarDatosPieza(ifstream& entrada) {
         Nitro* nuevaNitro = new Nitro (" ");
         Llantas* nuevaLLanta = new Llantas (" ");
 
+        //Al ser una lista polimorfica dividimos el metodo en varios constructoresy no uno generico para que sea posible usarlo
         if (tipoPieza == "Motor") {
             nuevaMotor = dynamic_cast<Motor *>(nuevaMotor->cargaDatos(objetoActual));
             lis->insertEnd(nuevaMotor);
@@ -93,7 +94,7 @@ Lista<U,-1>* Archivos<T, U>::cargarDatosPieza(ifstream& entrada) {
         } else if (tipoPieza == "Llanta") {
             nuevaLLanta = dynamic_cast<Llantas *>(nuevaLLanta->cargaDatos(objetoActual));
             lis->insertEnd(nuevaLLanta);
-        } // Agrega más condiciones para otros tipos si es necesario.
+        }
 
     }
     entrada.close();

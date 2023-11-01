@@ -43,7 +43,7 @@ bool MenuControler::opMenuJugador() {
             break;
         case 4://ModificarVehiculos
             while (!atras) {//Este while permite ir al menu anterior  y no volver al principal
-                print(_menu->subMenuModVehiculos());
+print(_menu->subMenuModVehiculos());
                 atras = opsubMenuModificacion();
                 enter();
             }
@@ -307,20 +307,22 @@ Vehiculo* MenuControler::crearVehiculo(){
 
 }
 
-bool MenuControler::elegirVehiculo(Vehiculo& veh) {
+Vehiculo* MenuControler::elegirVehiculo() {
     string idCar;
     bool verificacion = false;
+    Vehiculo* veh = nullptr;
     while(!verificacion) {
         print(YELLOW"\nSeleccione el vehiculo(si escribe 'salir' ira al menu anterior)");
         print(_juego->imprimirVehiculosJugador());
         print("\nIngrese el id del vehiculo a elegir: ");
         idCar = recivirString();
         if(idCar == "salir"){
-            return false;
+            return nullptr;
         }
         try {
-            veh= *_juego->buscarVehiculoJugador(idCar);
+            veh= _juego->buscarVehiculoJugador(idCar);
             verificacion = true;
+            return veh;
         }
         catch (Exceptions e) {
             clean();
@@ -329,7 +331,7 @@ bool MenuControler::elegirVehiculo(Vehiculo& veh) {
         }
     }
 
-    return true;
+    return nullptr;
 }
 bool MenuControler::elegirPiezaDeVehiculo(string& pieza, Vehiculo& veh) {
 string idPieza;
@@ -401,40 +403,40 @@ bool MenuControler::elegirPieza(string& pieza, Vehiculo& veh) {
 
 
 bool MenuControler::quitarTodasEspe() {
-    Vehiculo vehiculo;
-    bool verVehiculo = false;
-    verVehiculo = elegirVehiculo(vehiculo);
-    if(verVehiculo){
-        _juego->quitarTodasEspe(&vehiculo);
+    Vehiculo* vehiculo = nullptr;
+    //bool verVehiculo = false;
+    vehiculo = elegirVehiculo();
+    if(vehiculo!=nullptr){
+        _juego->quitarTodasEspe(vehiculo);
         return true;
     }
     return false;
 }
 
 bool MenuControler::quitarUnaEspe() {
-    Vehiculo vehiculo;
+    Vehiculo* vehiculo = nullptr;
     string pieza;
     bool verVehiculo = false;
     bool verPieza = false;
-    verVehiculo = elegirVehiculo(vehiculo);
-    verPieza = elegirPiezaDeVehiculo(pieza,vehiculo);
-    if (verVehiculo&&verPieza){
-        _juego->quitarUnaEspe(&vehiculo,pieza);
+    vehiculo = elegirVehiculo();
+    verPieza = elegirPiezaDeVehiculo(pieza,*vehiculo);
+    if (vehiculo!=nullptr&&verPieza){
+        _juego->quitarUnaEspe(vehiculo,pieza);
         return true;
     }
     return false;
 }
 
 bool MenuControler::modifiarVehiculo() {
-    Vehiculo vehiculo;
+    Vehiculo* vehiculo = nullptr;
     string pieza;
-    bool verVehiculo = false;
+    //bool verVehiculo = false;
     bool verPieza = false;
-    verVehiculo = elegirVehiculo(vehiculo);
-    verPieza = elegirPieza(pieza, vehiculo);
-    if (verVehiculo&&verPieza){
-        _juego->getListaPiezasDeVehiculo(&vehiculo);
-        _juego->modificarVehiculo(&vehiculo,pieza);
+    vehiculo = elegirVehiculo();
+    verPieza = elegirPieza(pieza, *vehiculo);
+    if (verPieza&&vehiculo!=nullptr){
+        _juego->getListaPiezasDeVehiculo(vehiculo);
+        _juego->modificarVehiculo(vehiculo,pieza);
         //borrar------------------
         //cout<<_juego->getListaVehiculoJugadcor().toString();
         //borrar------------------

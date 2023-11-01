@@ -37,13 +37,7 @@ void Pieza::setTraccion(float traccion) {
     _traccion = traccion;
 }
 
-//float Pieza::getVelocidad() const {
-//    return _velocidad;
-//}
 
-//void Pieza::setVelocidad(float velocidad) {
-//    _velocidad = velocidad;
-//}
 
 float Pieza::getPotencia() const {
     return _potencia;
@@ -53,39 +47,8 @@ void Pieza::setPotencia(float potencia) {
     _potencia = potencia;
 }
 
-//Item---------------------------------------------------
-void Pieza::quitarDecoraciones(string id) {
-//    Item* ppio;
-//    Item* aux;
-//    aux = ptrItem;
-//
-//    int cont = ptrItem->getContador();
-//    if(ptrItem==NULL) {
-//
-//    }else{
-//        ppio = ptrItem;
-//        if(ppio->getId() == id){//elimina el primero
-//            //aux = ppio;
-//            ppio = ptrItem->getItem();
-//            delete aux;
-//            //return ppio;
-//        }else{//elimina otro en caso de no ser el primero
-//
-//        }
-//    }
-}
+//Pieza---------------------------------------------------
 
-void Pieza::setItem(Item* v) {
-    ptrItem = v;
-}
-
-Item* Pieza::getItem() {
-    return ptrItem;
-}
-
-Item* Pieza::getSiguiente() {
-    return ptrItem->getSiguiente();
-}
 void Pieza::setEstado(bool est){
     utilizada = est;
 }

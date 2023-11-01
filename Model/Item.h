@@ -31,21 +31,13 @@ public:
     virtual void setVelocidad(float velocidad) ;
     virtual float getPotencia() const = 0;
     virtual void setPotencia(float potencia) = 0;
-    //Item----------------------------------------
-    virtual double costo()=0;
-    //virtual void agregarDecoraciones(Item*)=0;
+    //Item--------------------------------------------
     virtual string mostrarDecoraciones()  =0;
-    virtual void quitarDecoraciones(string id)=0;
-    //virtual void incrementoDecremento(bool)=0;
-    //virtual void setItem(Item*)=0;
-    //virtual Item* getItem()=0;
-    virtual Item* getSiguiente()=0;
-    //virtual int getContador()=0;
     //Operadores--------------------------------------
-    friend ostream &operator<<(ostream &os,  Item &vehiculo);//en realidad no hace faltra ponerlo aca
+    friend ostream &operator<<(ostream &os,  Item &vehiculo);
     virtual bool operator==(const string& id) const = 0;
     virtual bool operator!=(const string& id) const = 0;
-    //Archivos-------------------------------------=--
+    //Archivos----------------------------------------
     virtual Item* cargaDatos(Json::Value objeto) = 0;
     virtual Json::Value salvaDatos(Item& veh) = 0;
 };

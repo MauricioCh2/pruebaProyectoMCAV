@@ -27,8 +27,6 @@ public:
     virtual void setPrecio(double precio);
     virtual float getTraccion() const;
     virtual void setTraccion(float traccion) ;
-    //virtual float getVelocidad() const ;
-    //virtual void setVelocidad(float velocidad) ;
     virtual float getPotencia() const ;
     virtual void setPotencia(float potencia) ;
     //Vehiculo-----------------------------------
@@ -38,13 +36,10 @@ public:
     //Item----------------------------------------
     virtual double costo();
     virtual void agregarDecoraciones(Pieza*);
-    virtual string mostrarDecoraciones()  ;
+    virtual void agregarDecoracionesSinIncremento(Pieza*);
+    virtual string mostrarDecoraciones();
     virtual void quitarDecoraciones(string id);
     virtual void incrementoDecremento(bool, Pieza* item);
-    virtual void setItem(Item*);
-    virtual Item* getItem();
-    virtual Item* getSiguiente();
-    virtual int getContador();
     //Operadores--------------------------------------
     friend ostream &operator<<(ostream &os, const Item &Item);
     virtual bool operator==(const string& id) const ;

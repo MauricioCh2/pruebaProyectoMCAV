@@ -44,7 +44,8 @@ float recivirFloat();
 string recivirGetLine();
 
 //validar---------------------------------------------
-bool yesOrNo();
+bool yesOrNo(); //Valida un si o un no
+
 template<class T>
 string validrExistID(T& lis){
     string id = " ";
@@ -69,7 +70,6 @@ void enter();
 void clean();
 void clear();
 void ignoreCin();
-
 
 
 #endif //PRUEBAPROYECTOMCAV_UTILITIES_H

@@ -8,11 +8,6 @@ Vehiculo::Vehiculo(string id, string nombre, double precio, float traccion, floa
         _lisPiezas = new Lista<Pieza,-1>;
 }
 
-//VehiculoBase::VehiculoBase() {
-//    this->cont = 0;
-//}
-
-
 //ITEM---------------------------------------------------------------
 const string &Vehiculo::getId() const {
     return _id;
@@ -46,14 +41,6 @@ void Vehiculo::setTraccion(float traccion) {
     _traccion = traccion;
 }
 
-//float Vehiculo::getVelocidad() const {
-//    return _velocidad;
-//}
-
-//void Vehiculo::setVelocidad(float velocidad) {
-//    _velocidad = velocidad;
-//}
-
 float Vehiculo::getPotencia() const {
     return _potencia;
 }
@@ -67,11 +54,9 @@ Lista<Pieza,-1>* Vehiculo::getListaPiezas(){
     return _lisPiezas;
 }
 void Vehiculo::quitarTodasLasDecos(){
-
-    for (int i = 0; i < _lisPiezas->counter() ; ++i) {
+    for (int i = 0; i < _lisPiezas->counter() ; i++) {
          (*_lisPiezas)[i].setEstado(false);
-        this->incrementoDecremento(true,(&(*_lisPiezas)[i]));
-        //_lisPiezas->deleteEspe((*_lisPiezas)[i].getId());
+        this->incrementoDecremento(false,(&(*_lisPiezas)[i]));
         _lisPiezas->deleteEnd();
     }
     _lisPiezas = new Lista<Pieza,-1>;
@@ -86,7 +71,7 @@ bool Vehiculo::validarUso(string p){
 double Vehiculo::costo() {
     double pre = _precio;
     if(!_lisPiezas->emptyList()){
-        for (int i = 0; i < _lisPiezas->counter() ; ++i) {
+        for (int i = 0; i < _lisPiezas->counter() ; i++) {
             pre = pre + (*_lisPiezas)[i].getPrecio();
         }
     }
@@ -98,11 +83,11 @@ void Vehiculo::agregarDecoraciones(Pieza * item) {
     _lisPiezas->insertFirst(dynamic_cast<Pieza *>(item));
     dynamic_cast<Pieza *>(item)->setEstado(true);
     this->incrementoDecremento(true, item);
+}
+void Vehiculo::agregarDecoracionesSinIncremento(Pieza * item) {
+    _lisPiezas->insertFirst(dynamic_cast<Pieza *>(item));
+    dynamic_cast<Pieza *>(item)->setEstado(true);
 
-
-   //cout<< "Prueba de velocidad: "<< getVelocidad()<<endl;
-    //cout<< "Prueba de velocidad: "<< _velocidad<<endl;
-    //cout<< "Prueba de velocidad: "<< mostrarDecoraciones()<<endl;
 }
 
 string Vehiculo::mostrarDecoraciones()  {
@@ -120,7 +105,7 @@ string Vehiculo::mostrarDecoraciones()  {
 }
 
 void Vehiculo::incrementoDecremento(bool incremento, Pieza* item) {
-    if (incremento) {
+    if (incremento) {//Si se
         if (typeid(*item).name() == typeid(Motor).name()) {
             this->setPotencia(this->_potencia + item->getPotencia());
         }
@@ -149,31 +134,6 @@ void Vehiculo::quitarDecoraciones(string id) {
     _lisPiezas->deleteEspe(id);
 }
 
-void Vehiculo::setItem(Item * v) {
-    throw new Exceptions('n');
-}
-
-Item *Vehiculo::getItem() {
-    throw new Exceptions('n');
-    return nullptr;
-}
-
-Item *Vehiculo::getSiguiente() {
-    throw new Exceptions('n');
-    return nullptr;
-}
-
-int Vehiculo::getContador() {
-    return 0;
-}
-
-//ostream &operator<<(ostream &os, const Item &Item){
-//    os << "-----------------------------------------------------------------------------------------------------------------"<< endl;
-//    os << "\tModelo: " << Item.getNombre() << "\nID: " << Item.getId() <<"\tPrecio: " <<Item.getPrecio() << "\tTraccion: " << Item.getTraccion()<< "\tVelocidad: " << Item.getVelocidad()<< "\tPotencia: " << Item.getPotencia()  << endl;
-//    os << "Piezas: "<< endl;
-//
-//    return os;
-//}
 bool Vehiculo::operator==(const string& id) const {
     return this->_id == id;
 }
@@ -194,7 +154,7 @@ Vehiculo * Vehiculo::cargaDatos(Json::Value objeto) {
     float velocidad = objeto["Velocidad"].asFloat();
     float potencia = objeto["Potencia"].asFloat();
     vehiculo = new Vehiculo(ident, nombre, precio, traccion, velocidad, potencia);
-        Json::Value piezasJson = objeto["Piezas"];
+        Json::Value piezasJson = objeto["Piezas"];  //En caso de tener una lista de piezas esta se cargara a partir de este objeto de Json
 
 
         for (int i = 0; i < piezasJson.size(); ++i) {
@@ -205,24 +165,21 @@ Vehiculo * Vehiculo::cargaDatos(Json::Value objeto) {
             Llantas *nuevaLLanta = new Llantas(" ");
             if (tipoPieza == "Motor") {
                 nuevaMotor = dynamic_cast<Motor *>(nuevaMotor->cargaDatos(objetoActual));
-                lisAux->insertEnd(nuevaMotor);
-                //vehiculo->agregarDecoraciones();
+                lisAux->insertEnd(nuevaMotor);;
             } else if (tipoPieza == "Nitro") {
                 nuevaNitro = dynamic_cast<Nitro *>(nuevaNitro->cargaDatos(objetoActual));
                 lisAux->insertEnd(nuevaNitro);
             } else if (tipoPieza == "Llanta") {
                 nuevaLLanta = dynamic_cast<Llantas *>(nuevaLLanta->cargaDatos(objetoActual));
                 lisAux->insertEnd(nuevaLLanta);
-            } // Supongamos que tienes un método cargaDatos en la clase Pieza
+            }
 
         }
     for(int i=0; i <lisAux->counter(); i++){
         (*lisAux)[i].setEstado(true);
-        vehiculo->agregarDecoraciones(&(*lisAux)[i]);
+        vehiculo->agregarDecoracionesSinIncremento(&(*lisAux)[i]); //agrega las decos
     }
-   // hay que ver lo de la lista
     return vehiculo;
-
 }
 
 Json::Value Vehiculo::salvaDatos(Item &veh) {
@@ -233,8 +190,7 @@ Json::Value Vehiculo::salvaDatos(Item &veh) {
     event["Traccion"] = veh.getTraccion();
     event["Velocidad"] = veh.getVelocidad();
     event["Potencia"] = veh.getPotencia();
-
-    // agregamos piezas en caso de ser necesario
+    // agregamos piezas en caso de poseerlas
     if(!getListaPiezas()->emptyList()){
         Json::Value piezasJson(Json::arrayValue);
         for (int i = 0; i < _lisPiezas->counter(); ++i) {

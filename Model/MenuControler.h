@@ -27,7 +27,7 @@ public:
     //cosas que creo que van separadas para el mvc
     Jugador* crearJugador();
     Vehiculo* crearVehiculo();
-    bool elegirVehiculo(Vehiculo&);
+    Vehiculo* elegirVehiculo();
     bool elegirPieza(string&, Vehiculo&); //Este busca piezas y recive vehiculo para poder verificar que no tenga ya esta pieza
     bool elegirPiezaDeVehiculo(string&, Vehiculo&);  //Este busca e imprime las piezas del vehiculo que resive
 

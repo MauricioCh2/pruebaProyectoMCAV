@@ -177,8 +177,8 @@ string recivirGetLine() {
 bool yesOrNo(){
     string res;
     bool fin = false;
-    regex regexPattern("([Ss]i|[Nn]o|[Yy]es|[Yy])|[Nn]|[Ss]");
-    regex pos("([Ss]|[Ss]i|[Yy]|[Yy]es)");
+    regex regexPattern("([Ss]i|[Nn]o|[Yy]es|[Yy])|[Nn]|[Ss]"); //patron aceptado por el regex
+    regex pos("([Ss]|[Ss]i|[Yy]|[Yy]es)"); //Los valores que contaran como true
     while(!fin){
         res = recivirString();
         try {
