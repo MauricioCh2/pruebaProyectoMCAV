@@ -2,22 +2,23 @@
 // Created by mauri on 24/10/2023.
 //
 
-#ifndef PRUEBAPROYECTOMCAV_JUEGO_H
-#define PRUEBAPROYECTOMCAV_JUEGO_H
-
+#pragma once
+#include"Tienda.h"
 #include "Jugador.h"
 #include "Archivos.h"
+
 class Juego {
 private:
-Jugador* _jugador;
-Archivos<Lista<Jugador, -1>, Jugador> _archJug;
-string _infoJug;
-string _listaVehiculo;
-string _listaVehiculoDefecto;
-string _listaPieza;
-string _listaPiezaTienda;
-
+    Tienda*_tienda;
+    Jugador* _jugador;
+    Archivos<Lista<Jugador, -1>, Jugador> _archJug;
+    string _infoJug;
+    string _listaVehiculo;
+    string _listaVehiculoDefecto;
+    string _listaPieza;
+    string _listaPiezaTienda;
 public:
+    Juego();
     Juego(Jugador*);
     Jugador* recuperarJugador();
     //Jugador-----------------------------------------
@@ -27,6 +28,9 @@ public:
     Lista<Vehiculo, -1>& getListaVehiculoJugadcor();
     Lista<Pieza, -1>& getListaPiezasJugador();
     bool validarUso();
+    double getDineroJugador();
+    void rebajoDeDinero(double);
+    void agregarPiezaTienda(Pieza*);
     //Lista piezas vehiculos-------------------------
     Lista<Pieza, -1>& getListaPiezasDeVehiculo(Vehiculo* );
     string imprimirListaPiezasVehiculo( Vehiculo*);
@@ -40,7 +44,13 @@ public:
     //Utiles------------------------------------------
     Pieza* buscarPiezaJugador(string);
     Vehiculo* buscarVehiculoJugador(string);
+    //Tienda
+    void ingresarListaTienda(Pieza*);
+    string mostrarPiezasTienda();
+    void eliminarPiezasTienda(string);
+    Lista<Pieza,-1>*getListaTiendaPiezas();
+    Tienda*getTienda();
 };
 
 
-#endif //PRUEBAPROYECTOMCAV_JUEGO_H
+

@@ -225,7 +225,23 @@ T& Lista<T, tam>::search(U ident) {
 template<class T, int tam>
 template<class U>
 bool Lista<T, tam>::exist(U ident) {
-    if(emptyList()){
+    if (emptyList()) {
+        return false;
+    }
+    Nodo<T>* currentFront = _first;
+    Nodo<T>* currentBack = _end;
+
+    while (currentFront != nullptr && currentBack != nullptr) {
+        if (*(currentFront->getInfo()) == ident || *(currentBack->getInfo()) == ident) {
+            return true;
+        }
+
+        currentFront = currentFront->getNext();
+        currentBack = currentBack->getPrev();
+    }
+
+    return false;
+   /* if(emptyList()){
         return false;
     }
     Nodo<T> actual1 = *_first;
@@ -254,7 +270,7 @@ bool Lista<T, tam>::exist(U ident) {
         }else {return false;}
 
     }
-    return false;
+    return false;*/
 }
 
 template<class T, int tam>

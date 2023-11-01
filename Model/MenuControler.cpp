@@ -118,11 +118,13 @@ bool MenuControler::opTienda() {
     int op = 0;
     op = recivirInt();
     switch (op) {
-        case 1://Catalogo vehiculos
+        case 1://Catalogo vehiculo
+
             print(RED"opcion en desarrollo");
             enter();
             break;
         case 2://Catalogo piezas
+            print(_tienda->mostrarPiezas());
             print(RED"opcion en desarrollo");
             enter();
             break;
@@ -143,17 +145,25 @@ bool MenuControler::opTienda() {
 bool MenuControler::developMode() {
     int op = 0;
     op = recivirInt();
+    Pieza* pAux = nullptr;
     switch (op) {
-        case 1://Ingresar nuevos items
-            print(RED"opcion en desarrollo");
+        case 1:
+            pAux = ingresarPieza();
+            _juego->ingresarListaTienda(pAux);
             enter();
             break;
         case 2://Eliminar items de la tienda
-            print(RED"opcion en desarrollo");
+            if(eliminarPiezasTienda()){
+                print("Se elimino correctamente");
+            }else{
+                print(RED"No se pudo eliminar.");
+            }
+
             enter();
             break;
-        case 3://Mostrar todos los items //tienda y jugador
-            print(RED"opcion en desarrollo");
+        case 3://Mostrar los items de la tienda
+            print("Piezas disponibles: ");
+            print(_juego->mostrarPiezasTienda());
             enter();
             break;
         case 4://Atras
@@ -185,9 +195,10 @@ bool MenuControler::llamarMenus() {
             break;
         case 2: //Tienda
             while(!atras) {
+                enter();
                 clean();
-                print(_menu->tienda());
-                atras = opTienda();
+                print(YELLOW"<><>TIENDA<><>");
+                atras = !usarTienda();
             }
             break;
         case 3: //Develop (No se si lo voy a dejar al final o lo incluimos en tienda y jugador)
@@ -276,6 +287,8 @@ Jugador* MenuControler::crearJugador() {
     lisPQ->insertEnd(piezaQ6);
     lisPQ->insertEnd(piezaQ7);
     lisPQ->insertEnd(piezaQ8);
+
+
     ofstream piezas ("lisPiezas.txt");
     Archivos<Lista<Pieza, -1>,Pieza> archPiezas;
     archPiezas.guardarDatos(*lisPQ,piezas);
@@ -451,4 +464,146 @@ bool MenuControler::modifiarVehiculo() {
     return false;
 }
 
+//
+Pieza *MenuControler::ingresarPieza() {
+    string id = " ";
+    string nombre = " ";
+    double precio = 0.0;
+    float traccion = 0.0;
+    float velocidad = 0.0;
+    float potencia = 0.0;
+    int tipo = 0;
 
+    Pieza* ptrP = nullptr;
+   // Lista<Pieza,-1>*  listaI = new  Lista<Pieza,-1>;
+
+    cout << "-=-=-=-=- Ingrese datos de los items (TIENDA)-=-=-=-=-" << endl << endl;
+    print("Ingrese el id: ");
+    id = recivirStringN();
+    print("Ingrese el nombre: ");
+    nombre = recivirGetLine();
+    print("Elija el tipo de pieza: ");
+    print("1. Nitro ");
+    print("2. Motor ");
+    print("3. Llantas ");
+    tipo = recivirInt();
+
+    print("Ingrese el precio que tendra: ");
+    precio = recivirDouble();
+
+    // Crear el objeto pieza según el tipo elegido
+    switch (tipo) {
+        case 1:
+            print("Ingrese el valor de la velocidad: ");
+            velocidad = recivirFloat();
+            ptrP = new Nitro(id, nombre, precio, velocidad);
+            break;
+        case 2:
+            print("Ingrese el valor de la potencia: ");
+            potencia = recivirFloat();
+
+            ptrP = new Motor(id, nombre, precio,  potencia);
+            break;
+        case 3:
+            print("Ingrese el valor de la traccion: ");
+            traccion = recivirFloat();
+            ptrP = new Llantas(id, nombre, precio, traccion);
+            break;
+        default:
+            cout << "Tipo inválido \n";
+            break;
+
+    }
+
+    //listaI->insertFirst(ptrP);
+    //ooooh
+    return ptrP;
+}
+
+string MenuControler::mostrarPiezasTienda() {
+    return _juego->mostrarPiezasTienda();
+}
+
+bool MenuControler::eliminarPiezasTienda() {
+    string idPieza = " ";
+    bool verificarPieza = elegirPiezaTienda(idPieza);
+    if(verificarPieza){
+        _juego->eliminarPiezasTienda(idPieza);
+        return true;
+    }
+    return false;
+}
+
+bool MenuControler::elegirPiezaTienda(string& id) {
+    string idPieza = " ";
+    bool verificacion = false;
+    while(!verificacion){
+        print(YELLOW"\nQue pieza deseas elegir?(si escribes ' salir vas al menu anterior)");
+        print(_juego->mostrarPiezasTienda());
+        idPieza = recivirString();
+        if(idPieza == "salir") {
+            return false;
+        }
+        try{
+            if(_juego->getListaTiendaPiezas()->exist(idPieza)){
+                verificacion = true;
+                id = idPieza;
+                return true;
+            }
+            else
+                throw new Exceptions('P');
+        }
+        catch(Exceptions* e){
+            clean();
+            print(e->what());
+        }
+    }
+    return false;
+}
+
+bool MenuControler::usarTienda() {
+        Pieza*ptrP= nullptr;
+        string id = " ";
+        bool op = false;
+        bool verPieza = false;
+        bool seguridad = false;
+        if(_juego->getListaTiendaPiezas()->emptyList()){
+            return false;
+        }else{
+            print(_juego->getTienda()->mostrarPiezas());
+            print("Quiere comprar algo y/n");
+            op = yesOrNo();
+            if(op){
+                print("Seleccione que pieza: ");
+                verPieza = elegirPiezaTienda(id);
+                if(verPieza){
+                    ptrP = &_juego->getListaTiendaPiezas()->search(id);
+                    if(_juego->getDineroJugador() >= ptrP->getPrecio()){
+                        print("Estas seguro que quieres comprar esta pieza?(y/n)");
+                        seguridad= yesOrNo();
+                        if(seguridad){
+                            //aqui va el metodo bool de tienda comprar
+                            //void incluirle al jugador el Objeto
+                            _juego->agregarPiezaTienda(ptrP);
+                            //void rebajarle al jugador el dinero
+                            _juego->rebajoDeDinero(ptrP->getPrecio());
+                            print("Pieza comprada exitosamente!");
+                            enter();
+                            return false;
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        enter();
+                        print(RED"No tienes dinero suficiente :(");
+                        return false;
+                    }
+                }
+            }else{
+                return true;
+            }
+        }
+
+        return false;
+
+}

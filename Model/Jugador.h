@@ -1,7 +1,7 @@
 //
 // Created by eolic on 21/10/2023.
 //
-
+#pragma once
 #include<iostream>
 #include<sstream>
 #include "VehiculoBase.h"
@@ -13,7 +13,6 @@
 #include "Llantas.h"
 
 using namespace std;
-
 
 class Jugador {
 private:
@@ -42,6 +41,9 @@ public:
 
     void agregarVehiculos(Vehiculo* );
     void mostrarVehiculos() const;
+//TIENDA
+    void agregarPiezaTienda(Pieza*);
+    void rebajoDeDinero(double);
 
     friend ostream &operator<<(ostream &os,  Jugador &jugador);
     bool operator==(const string& id) const;

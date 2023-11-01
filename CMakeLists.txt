@@ -4,8 +4,7 @@ project(pruebaProyectoMCAV)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(pruebaProyectoMCAV main.cpp
-        View/Menu.cpp
-        View/Menu.h
+
         Model/dist/json/json.h
         Model/dist/jsoncpp.cpp
         Model/Archivos.h
@@ -21,17 +20,13 @@ add_executable(pruebaProyectoMCAV main.cpp
         Model/Tienda.h
         Model/Motor.cpp
         Model/Motor.h
-        Model/Motor.h
         Model/Llantas.cpp
         Model/Llantas.h
-        Model/Llantas.h
         Model/Nitro.cpp
-        Model/Nitro.h
         Model/Nitro.h
 
 
         Model/Jugador.cpp
-        Model/Jugador.h
         Model/Jugador.h
         Model/Menu.cpp
         Model/Menu.h
@@ -43,9 +38,30 @@ add_executable(pruebaProyectoMCAV main.cpp
         Model/VehiculoBase.h
         Model/Pieza.cpp
         Model/Pieza.h
-        Controler/soloParaQueAparezcaCon.cpp
-        Controler/soloParaQueAparezcaCon.h
-        Controler/soloParaQueAparezcaCon.h
-        View/soloparaqueaparezcaview.cpp
-        View/soloparaqueaparezcaview.h
+
+        View/MenuJugador.cpp
+        View/MenuJugador.h
+        View/MenuPrincipal.cpp
+        View/MenuPrincipal.h
+        View/MenuTienda.cpp
+        View/MenuTienda.h
+        View/MenuPiezas.cpp
+        View/MenuPiezas.h
+        View/MenuVehiculoB.cpp
+        View/MenuVehiculoB.h
+
+        Controler/ControlPrincipal.cpp
+        Controler/ControlPrincipal.h
+        Controler/ControlJugador.cpp
+        Controler/ControlJugador.h
+        Controler/ControlVehiculo.cpp
+        Controler/ControlVehiculo.h
+        Controler/ControlVehiculo.h
+        Controler/ControlTienda.cpp
+        Controler/ControlTienda.h
+        Controler/ControlTienda.h
+        Controler/ControlItems.cpp
+        Controler/ControlItems.h
+
+
 )

@@ -9,7 +9,19 @@
 //        //llamar a metodo de creacion de jugador que se encuentra aqui
 //    }
 //}
+
+Juego::Juego() {
+    _tienda = new Tienda();
+    _jugador = new Jugador();
+    _infoJug = "infoJugador.txt";
+    _listaVehiculo = "lisVehiculos.txt";
+    _listaVehiculoDefecto = "lisVehiculosDefecto.txt" ;
+    _listaPieza = "lisPiezaVehiculo.txt";
+    _listaPiezaTienda = "lisPiezaTienda";
+}
+
 Juego::Juego(Jugador* j){
+    _tienda = new Tienda();
      _jugador = j;
      _infoJug = "infoJugador.txt";
      _listaVehiculo = "lisVehiculos.txt";
@@ -129,3 +141,36 @@ bool Juego::validarUso() {
     _jugador->getListaPieza();
     return false;
 }
+
+void Juego::ingresarListaTienda(Pieza* ptrP) {
+     _tienda->ingresarPiezasTienda(ptrP);
+}
+
+string Juego::mostrarPiezasTienda() {
+    return _tienda->mostrarPiezas();
+}
+
+void Juego::eliminarPiezasTienda(string id) {
+    return _tienda->eliminarPiezas(id);
+}
+
+Lista<Pieza, -1> *Juego::getListaTiendaPiezas() {
+    return _tienda->getLista();
+}
+
+Tienda *Juego::getTienda() {
+    return _tienda;
+}
+
+double Juego::getDineroJugador() {
+    return _jugador->getDinero();
+}
+
+void Juego::rebajoDeDinero(double pre) {
+        _jugador->rebajoDeDinero(pre);
+}
+
+void Juego::agregarPiezaTienda(Pieza* p) {
+       _jugador->agregarPiezaTienda(p);
+}
+

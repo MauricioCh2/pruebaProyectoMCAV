@@ -122,4 +122,14 @@ void Jugador::cargarLista() {
     //this->setLista();
 }
 
+void Jugador::agregarPiezaTienda(Pieza*p) {
+    _lisPiezas->insertEnd(p);
+
+
+}
+
+void Jugador::rebajoDeDinero(double pre) {
+    setDinero((getDinero()-pre));
+}
+
 

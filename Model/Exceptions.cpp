@@ -13,7 +13,7 @@ const char* Exceptions::what() const throw()
     switch (motivo) {
         case 'e': return "\x1B[31m ERROR, ese id ya existe, por favor ingrese otro \x1B[37m";
         case 'b': return "\x1B[31m ERROR, ingrese 0 o 1 \x1B[37m";
-        case 'O': return "\x1B[31m ERROR, Silla ocupada \x1B[37m";
+        case 'P': return "\x1B[31m ERROR, Pieza no encontrada \x1B[37m";
         case 'f': return "\x1B[31m ERROR, de fecha, sintaxis: dd/mm/aa  \x1B[37m";
         case 'h': return "\x1B[31m ERROR, de hora, sintaxis: h:m  \x1B[37m";
         case 'L': return "\x1B[31m ERROR, de lista, esa id no existe  \x1B[37m";

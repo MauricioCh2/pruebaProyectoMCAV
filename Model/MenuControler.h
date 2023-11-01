@@ -5,6 +5,7 @@
 #ifndef PRUEBAPROYECTOMCAV_MENUCONTROLER_H
 #define PRUEBAPROYECTOMCAV_MENUCONTROLER_H
 
+#include"Tienda.h"
 #include "Menu.h"
 #include "Archivos.h"
 #include "Juego.h"
@@ -13,7 +14,7 @@ class MenuControler {
 private:
     Menu* _menu;
     Juego* _juego;
-
+    Tienda* _tienda;
 public:
     void inicio();
     bool llamarMenus();
@@ -34,7 +35,12 @@ public:
     bool quitarTodasEspe();
     bool quitarUnaEspe();
     bool modifiarVehiculo();
-
+//Tienda
+    Pieza* ingresarPieza();
+    string mostrarPiezasTienda();
+    bool elegirPiezaTienda(string&);
+    bool eliminarPiezasTienda();
+    bool usarTienda();
 };
 
 

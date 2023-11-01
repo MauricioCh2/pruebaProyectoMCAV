@@ -50,8 +50,8 @@ string Menu::subMenuModVehiculos() {
 string Menu::tienda() {
     stringstream s;
     s<< YELLOW"<<<<Tienda>>>>"<<RESET<<endl;
-    s<< "[1] Catalogo vehiculos"<<endl;
-    s<< "[2] Catalogo de piezas"<<endl;
+    s<< "[1] Comprar pieza."<<endl;
+    s<< "[2] Catalogo de piezas."<<endl;
     s<< "[3] Atras" <<endl;
     return s.str();
 }
@@ -61,7 +61,7 @@ string Menu::develop() {
     s<< RED"<<<<Develop mode>>>>"<<RESET<<endl;
     s<< "[1] Ingresar nuevos items"<<endl;
     s<< "[2] Eliminar items de la tienda"<<endl;
-    s<< "[3] Mostrar todos los items"<<endl;
+    s<< "[3] Mostrar todos los items (Tienda)"<<endl;
     s<< "[4] Atras" <<endl;
     return s.str();
 }
