@@ -6,9 +6,9 @@
 
 
 Jugador::Jugador() {
-    _id = "";
-    _nombre = "";
-    _dinero = 0.0;
+    _id = "1";
+    _nombre = "1";
+    _dinero = 1.0;
 
 }
 Jugador::Jugador(const string id, const string nombre, double dinero) : _id(id), _nombre(nombre), _dinero(dinero)/*ptrV(ptrV)*/ {

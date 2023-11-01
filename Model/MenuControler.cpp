@@ -341,6 +341,7 @@ while(!verificacion) {
     }
 print(YELLOW"\nQue pieza deseas elegir?(si escribe 'salir' ira al menu anterior)");
 print(_juego->imprimirListaPiezasVehiculo(&veh));
+print("Ingrece el id de la pieza a seleccionar: ");
 idPieza = recivirString();
 if(idPieza == "salir"){
 return false;
@@ -372,6 +373,7 @@ bool MenuControler::elegirPieza(string& pieza, Vehiculo& veh) {
     while(!verificacion) {
         print(YELLOW"\nQue pieza deseas elegir?(si escribe 'salir' ira al menu anterior)");
         print(_juego->imprimirPiezasJugador());
+        print("Ingrece el id de la pieza a seleccionar: ");
         idPieza = recivirString();
         if(idPieza == "salir"){
             return false;
@@ -473,18 +475,18 @@ Pieza *MenuControler::ingresarPieza() {
         case 1:
             print("Ingrese el valor de la velocidad: ");
             velocidad = recivirFloat();
-            ptrP = new Nitro(id, nombre, precio, velocidad);
+            ptrP = new Nitro(nombre,id, precio, velocidad);
             break;
         case 2:
             print("Ingrese el valor de la potencia: ");
             potencia = recivirFloat();
 
-            ptrP = new Motor(id, nombre, precio,  potencia);
+            ptrP = new Motor( nombre,id, precio,  potencia);
             break;
         case 3:
             print("Ingrese el valor de la traccion: ");
             traccion = recivirFloat();
-            ptrP = new Llantas(id, nombre, precio, traccion);
+            ptrP = new Llantas(nombre,id, precio, traccion);
             break;
         default:
             cout << "Tipo inválido \n";
@@ -517,6 +519,7 @@ bool MenuControler::elegirPiezaTienda(string& id) {
     while(!verificacion){
         print(YELLOW"\nQue pieza deseas elegir?(si escribes ' salir vas al menu anterior)");
         print(_juego->mostrarPiezasTienda());
+        print("Ingrece el id de la pieza a seleccionar: ");
         idPieza = recivirString();
         if(idPieza == "salir") {
             return false;
@@ -564,7 +567,7 @@ bool MenuControler::usarTienda() {
                             _juego->agregarPiezaTienda(ptrP);
                             //void rebajarle al jugador el dinero
                             _juego->rebajoDeDinero(ptrP->getPrecio());
-                            print("Pieza comprada exitosamente!");
+                            print(YELLOW"Pieza comprada exitosamente!");
                             enter();
                             return false;
                         }else{

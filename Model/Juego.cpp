@@ -39,32 +39,6 @@ Jugador *Juego::recuperarJugador() {
     Archivos<Lista<Pieza,-1>, Pieza> archP;
     listaP = archP.cargarDatosPieza(fpieza);
     jug->setListaPieza(listaP);
-
-//--------------------------------------------------------------------------------------------------------BORRAR-----------
- //pieza ("nombre", "ID", precio, float )
-//    Pieza* piezaQ1 = new Motor("interno","M1", 1700, 25);
-//    Pieza* piezaQ2 = new Motor("alto rendimiento","M2", 2300, 50);
-//    Pieza* piezaQ3 = new Llantas(" AA alta traccion","Ll1", 220, 80);
-//    Pieza* piezaQ4 = new Llantas(" B traccion normal","Ll2", 1100, 45);
-//    Pieza* piezaQ5 = new Llantas(" C traccion baja","Ll3", 600, -10);
-//    Pieza* piezaQ6 = new Nitro(" Basico","N1", 1000, 30);
-//    Pieza* piezaQ7 = new Nitro(" intermedio","N2", 1500, 20);
-//    Pieza* piezaQ8 = new Nitro(" Altro rendimiento","N3", 2000, 30);
-//    Lista<Pieza, -1>* lisPQ = new Lista<Pieza, -1>;
-//    lisPQ->insertEnd(piezaQ1);
-//    lisPQ->insertEnd(piezaQ2);
-//    lisPQ->insertEnd(piezaQ3);
-//    lisPQ->insertEnd(piezaQ4);
-//    lisPQ->insertEnd(piezaQ5);
-//    lisPQ->insertEnd(piezaQ6);
-//    lisPQ->insertEnd(piezaQ7);
-//    lisPQ->insertEnd(piezaQ8);
-
-
-    //ofstream piezas ("lisPiezaVehiculo.txt");
-    //archP.guardarDatos(listaP,piezas);
-    //jug->setListaPieza(&listaP);
-
     return jug;
 }
 
@@ -170,7 +144,11 @@ bool Juego::guardarAlSalir() {
     Archivos<Lista<Vehiculo,-1>, Vehiculo> archVehi;
     if(!_jugador->getListaVehiculo()->emptyList()) {
         archVehi.guardarDatos(*_jugador->getListaVehiculo(), ofVehiculo);
-        return true;
     }
-    return false;
+    ofstream ofTienda("lisPiezaTienda.txt");
+    Archivos<Lista<Pieza,-1>, Pieza> archPieza;
+    if(!_tienda->getLista()->emptyList()){
+        archPieza.guardarDatos(*_tienda->getLista(),ofTienda);
+    }
+    return true;
 }

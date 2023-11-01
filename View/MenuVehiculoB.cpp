@@ -5,7 +5,7 @@
 #include "MenuVehiculoB.h"
 
 MenuVehiculo::MenuVehiculo() {
-    _juego = new Juego();
+    //_juego = new Juego();
     mP = new MenuPiezas();
 }
 

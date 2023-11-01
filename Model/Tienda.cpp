@@ -9,6 +9,10 @@
 Tienda::Tienda() {
     ptrP = new Lista<Pieza,-1>;
 
+    ifstream fpieza ("lisPiezaTienda.txt");
+    Archivos<Lista<Pieza,-1>, Pieza> archP;
+    ptrP = archP.cargarDatosPieza(fpieza);
+
 }
 
 

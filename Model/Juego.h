@@ -18,7 +18,7 @@ private:
     string _listaPieza;
     string _listaPiezaTienda;
 public:
-    Juego(Jugador*);
+    Juego(Jugador* = new Jugador());
     Jugador* recuperarJugador();
     //Jugador-----------------------------------------
     string imprimirInfoJugador();

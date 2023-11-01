@@ -5,6 +5,7 @@
 #pragma once
 #include"Pieza.h"
 #include"Lista.h"
+#include "Archivos.h"
 
 class Tienda {
 private:
