@@ -71,6 +71,8 @@ void Vehiculo::quitarTodasLasDecos(){
     for (int i = 0; i < _lisPiezas->counter() ; ++i) {
          (*_lisPiezas)[i].setEstado(false);
         this->incrementoDecremento(true,(&(*_lisPiezas)[i]));
+        //_lisPiezas->deleteEspe((*_lisPiezas)[i].getId());
+        _lisPiezas->deleteEnd();
     }
     _lisPiezas = new Lista<Pieza,-1>;
 }
@@ -98,9 +100,9 @@ void Vehiculo::agregarDecoraciones(Pieza * item) {
     this->incrementoDecremento(true, item);
 
 
-    cout<< "Prueba de velocidad: "<< getVelocidad()<<endl;
-    cout<< "Prueba de velocidad: "<< _velocidad<<endl;
-    cout<< "Prueba de velocidad: "<< mostrarDecoraciones()<<endl;
+   //cout<< "Prueba de velocidad: "<< getVelocidad()<<endl;
+    //cout<< "Prueba de velocidad: "<< _velocidad<<endl;
+    //cout<< "Prueba de velocidad: "<< mostrarDecoraciones()<<endl;
 }
 
 string Vehiculo::mostrarDecoraciones()  {
@@ -193,9 +195,7 @@ Vehiculo * Vehiculo::cargaDatos(Json::Value objeto) {
     float potencia = objeto["Potencia"].asFloat();
     vehiculo = new Vehiculo(ident, nombre, precio, traccion, velocidad, potencia);
         Json::Value piezasJson = objeto["Piezas"];
-//        ifstream ofveh ("lisVehiculos.txt");
-//        Archivos<Lista<Pieza,-1>, Pieza> arch;
-//        lisAux = arch.cargarDatosPieza(ofveh);
+
 
         for (int i = 0; i < piezasJson.size(); ++i) {
             Json::Value objetoActual = piezasJson[i];
@@ -217,9 +217,10 @@ Vehiculo * Vehiculo::cargaDatos(Json::Value objeto) {
 
         }
     for(int i=0; i <lisAux->counter(); i++){
+        (*lisAux)[i].setEstado(true);
         vehiculo->agregarDecoraciones(&(*lisAux)[i]);
     }
-    //hay que ver lo de la lista
+   // hay que ver lo de la lista
     return vehiculo;
 
 }

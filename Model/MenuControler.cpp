@@ -424,7 +424,7 @@ bool MenuControler::modifiarVehiculo() {
         _juego->getListaPiezasDeVehiculo(&vehiculo);
         _juego->modificarVehiculo(&vehiculo,pieza);
         //borrar------------------
-        cout<<_juego->getListaVehiculoJugadcor().toString();
+        //cout<<_juego->getListaVehiculoJugadcor().toString();
         //borrar------------------
         return true;
     }
