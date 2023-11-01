@@ -71,6 +71,8 @@ void Vehiculo::quitarTodasLasDecos(){
     for (int i = 0; i < _lisPiezas->counter() ; ++i) {
          (*_lisPiezas)[i].setEstado(false);
         this->incrementoDecremento(true,(&(*_lisPiezas)[i]));
+        //_lisPiezas->deleteEspe((*_lisPiezas)[i].getId());
+        _lisPiezas->deleteEnd();
     }
     _lisPiezas = new Lista<Pieza,-1>;
 }
@@ -98,9 +100,9 @@ void Vehiculo::agregarDecoraciones(Pieza * item) {
     this->incrementoDecremento(true, item);
 
 
-    cout<< "Prueba de velocidad: "<< getVelocidad()<<endl;
-    cout<< "Prueba de velocidad: "<< _velocidad<<endl;
-    cout<< "Prueba de velocidad: "<< mostrarDecoraciones()<<endl;
+   //cout<< "Prueba de velocidad: "<< getVelocidad()<<endl;
+    //cout<< "Prueba de velocidad: "<< _velocidad<<endl;
+    //cout<< "Prueba de velocidad: "<< mostrarDecoraciones()<<endl;
 }
 
 string Vehiculo::mostrarDecoraciones()  {
@@ -181,14 +183,45 @@ bool Vehiculo::operator!=(const string& id) const {
 }
 
 Vehiculo * Vehiculo::cargaDatos(Json::Value objeto) {
+
+    Lista<Pieza,-1>* lisAux = new Lista<Pieza,-1>;
+
+    Vehiculo* vehiculo = nullptr;
     string ident = objeto["ID"].asString();
     string nombre = objeto["Nombre"].asString();
     double precio = objeto["Precio"].asDouble();
     float traccion = objeto["Traccion"].asFloat();
     float velocidad = objeto["Velocidad"].asFloat();
     float potencia = objeto["Potencia"].asFloat();
-    //hay que ver lo de la lista
-    return new Vehiculo(ident, nombre, precio, traccion, velocidad, potencia);
+    vehiculo = new Vehiculo(ident, nombre, precio, traccion, velocidad, potencia);
+        Json::Value piezasJson = objeto["Piezas"];
+
+
+        for (int i = 0; i < piezasJson.size(); ++i) {
+            Json::Value objetoActual = piezasJson[i];
+            string tipoPieza = objetoActual["Tipo"].asString();
+            Motor *nuevaMotor = new Motor(" ");
+            Nitro *nuevaNitro = new Nitro(" ");
+            Llantas *nuevaLLanta = new Llantas(" ");
+            if (tipoPieza == "Motor") {
+                nuevaMotor = dynamic_cast<Motor *>(nuevaMotor->cargaDatos(objetoActual));
+                lisAux->insertEnd(nuevaMotor);
+                //vehiculo->agregarDecoraciones();
+            } else if (tipoPieza == "Nitro") {
+                nuevaNitro = dynamic_cast<Nitro *>(nuevaNitro->cargaDatos(objetoActual));
+                lisAux->insertEnd(nuevaNitro);
+            } else if (tipoPieza == "Llanta") {
+                nuevaLLanta = dynamic_cast<Llantas *>(nuevaLLanta->cargaDatos(objetoActual));
+                lisAux->insertEnd(nuevaLLanta);
+            } // Supongamos que tienes un método cargaDatos en la clase Pieza
+
+        }
+    for(int i=0; i <lisAux->counter(); i++){
+        (*lisAux)[i].setEstado(true);
+        vehiculo->agregarDecoraciones(&(*lisAux)[i]);
+    }
+   // hay que ver lo de la lista
+    return vehiculo;
 
 }
 
@@ -201,6 +234,14 @@ Json::Value Vehiculo::salvaDatos(Item &veh) {
     event["Velocidad"] = veh.getVelocidad();
     event["Potencia"] = veh.getPotencia();
 
+    // agregamos piezas en caso de ser necesario
+    if(!getListaPiezas()->emptyList()){
+        Json::Value piezasJson(Json::arrayValue);
+        for (int i = 0; i < _lisPiezas->counter(); ++i) {
+            piezasJson.append((*_lisPiezas)[i].salvaDatos((*_lisPiezas)[i]));
+        }
+        event["Piezas"] = piezasJson;
+    }
     return event;
 }
 

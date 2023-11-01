@@ -40,6 +40,9 @@ public:
     //Utiles------------------------------------------
     Pieza* buscarPiezaJugador(string);
     Vehiculo* buscarVehiculoJugador(string);
+
+    bool guardarAlSalir();
+
 };
 
 

@@ -119,21 +119,40 @@ void Lista<T, tam>::insertEnd (T* t) {
 }
 template<class T, int tam>
 bool Lista<T, tam>::deleteEnd() {
-    Nodo<T>* actual = _first;
-    if(_end == nullptr){
-        return false;
+//    Nodo<T>* actual = _first;
+//    if(_end == nullptr){
+//        return false;
+//    }
+//    else{
+//        while(_end->getPrev()!=nullptr){
+//            actual= _end;
+//            delete actual;
+//            _end = _end->getPrev();
+//        }
+//        if(_end->getPrev()==nullptr){
+//            delete _end;
+//            _end= nullptr;
+//        }
+//    }
+//    return true;
+    if (_end == nullptr) {
+        return false; // La lista está vacía, no hay nada que eliminar.
     }
-    else{
-        while(_end->getPrev()!=nullptr){
-            actual= _end;
-            delete actual;
-            _end = _end->getPrev();
-        }
-        if(_end->getPrev()==nullptr){
-            delete _end;
-            _end= nullptr;
-        }
+    else if (_end->getPrev() == nullptr) {
+        delete _end;
+        _end = nullptr;
+        _first = nullptr; // También debes establecer _first en nullptr si la lista queda vacía.
     }
+    else {
+        Nodo<T>* prevToEnd = _end->getPrev();
+        delete _end;
+        _end = prevToEnd;
+        _end->setNext(nullptr); // Asegúrate de que el nuevo último nodo apunte a nullptr.
+
+
+
+    }
+    this->_cont--;
     return true;
 }
 
@@ -225,36 +244,52 @@ T& Lista<T, tam>::search(U ident) {
 template<class T, int tam>
 template<class U>
 bool Lista<T, tam>::exist(U ident) {
-    if(emptyList()){
+    if (emptyList()) {
         return false;
     }
-    Nodo<T> actual1 = *_first;
-    Nodo<T> actual2 = *_end;
+    Nodo<T>* currentFront = _first;
+    Nodo<T>* currentBack = _end;
 
-    if(actual1.getNext() == nullptr && actual2.getPrev()== nullptr){ // si hay un solo objeto
-        if (*(actual1.getInfo()) == ident) {
+    while (currentFront != nullptr && currentBack != nullptr) {
+        if (*(currentFront->getInfo()) == ident || *(currentBack->getInfo()) == ident) {
             return true;
         }
-        if (*(actual2.getInfo()) == ident) {
-            return true;
-        }
-        else {return false;}
+
+        currentFront = currentFront->getNext();
+        currentBack = currentBack->getPrev();
     }
-    while (actual1.getNext()->getNext() != nullptr && actual2.getPrev()->getPrev() != nullptr) {
 
-        if (*(actual1.getInfo()) == ident) {
-            return true;
-        }
-        if (*(actual2.getInfo()) == ident) {
-            return true;
-        }
-        if(actual1.getNext() != nullptr && actual2.getPrev() != nullptr  ){
-            actual1 = *actual1.getNext();
-            actual2 = *actual2.getPrev();
-        }else {return false;}
-
-    }
     return false;
+//    if(emptyList()){
+//        return false;
+//    }
+//    Nodo<T> actual1 = *_first;
+//    Nodo<T> actual2 = *_end;
+//
+//    if(actual1.getNext() == nullptr && actual2.getPrev()== nullptr){ // si hay un solo objeto
+//        if (*(actual1.getInfo()) == ident) {
+//            return true;
+//        }
+//        if (*(actual2.getInfo()) == ident) {
+//            return true;
+//        }
+//        else {return false;}
+//    }
+//    while (actual1.getNext()->getNext() != nullptr && actual2.getPrev()->getPrev() != nullptr) {
+//
+//        if (*(actual1.getInfo()) == ident) {
+//            return true;
+//        }
+//        if (*(actual2.getInfo()) == ident) {
+//            return true;
+//        }
+//        if(actual1.getNext() != nullptr && actual2.getPrev() != nullptr  ){
+//            actual1 = *actual1.getNext();
+//            actual2 = *actual2.getPrev();
+//        }else {return false;}
+//
+//    }
+//    return false;
 }
 
 template<class T, int tam>
@@ -277,6 +312,7 @@ bool Lista<T, tam>::deleteEspe(U ident){
         _first = NULL;
         _end = NULL;
         //delete _end;
+        this->_cont--;
         return true;
     }
     if(*actual1->getInfo()== ident){
@@ -285,6 +321,7 @@ bool Lista<T, tam>::deleteEspe(U ident){
         _first = actual1;
         _first->setNext(actual1->getNext());
         _first->setPrev(NULL);
+        this->_cont--;
         return true;
     }
     // En caso de que fuera el ultimo
@@ -297,6 +334,7 @@ bool Lista<T, tam>::deleteEspe(U ident){
             _end->getPrev()->setNext(_end);
         }
         _end->setNext(NULL);
+        this->_cont--;
         return true;
     }
     //En el caso de que si aya que recorrer la lista
@@ -306,6 +344,7 @@ bool Lista<T, tam>::deleteEspe(U ident){
             pPrevr->setNext(actual1->getNext());
             pNext = actual1->getNext();
             pNext->setPrev(actual1->getPrev());
+            this->_cont--;
             return true;
         }
         if (*(actual2->getInfo()) == ident) {
@@ -313,6 +352,7 @@ bool Lista<T, tam>::deleteEspe(U ident){
             pPrevr->setNext(actual2->getNext());
             pNext = actual2->getNext();
             pNext->setPrev(actual2->getPrev());
+            this->_cont--;
             return true;
         }
         actual1 = actual1->getNext();
