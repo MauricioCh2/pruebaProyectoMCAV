@@ -13,14 +13,6 @@ public:
     Nitro(string nombre = " ", string ident = " ", double precio = 0.0, float velociad = 0.0);
     virtual ~Nitro();
 
-    //Item--------------------------------------------
-    virtual const string &getId() const ;
-    virtual void setId(const string &id);
-    virtual const string &getNombre() const ;
-    virtual void setNombre(const string &nombre);
-    virtual double getPrecio() const;
-    virtual void setPrecio(double precio) ;
-
     //Vehiculo----------------------------------------
     virtual string mostrarDecoraciones()  ;
     //Operadores--------------------------------------

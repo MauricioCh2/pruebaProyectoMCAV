@@ -5,14 +5,14 @@
 #ifndef PRUEBAPROYECTOMCAV_UTILITIES_H
 #define PRUEBAPROYECTOMCAV_UTILITIES_H
 
-
+//Archivo con métodos, bibliotecas y funciones generales y visuales, para el proyecto.
 #include <iostream>
 #include <sstream>
 #include "Exceptions.h"
-
 #include <regex>
 #include <string>
 using namespace std;
+
 //Colores
 #define BLACK   "\x1B[30m"
 #define RED     "\x1b[31m"

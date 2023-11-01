@@ -47,14 +47,6 @@ string Menu::subMenuModVehiculos() {
 }
 
 
-string Menu::tienda() {
-    stringstream s;
-    s<< YELLOW"<<<<Tienda>>>>"<<RESET<<endl;
-    s<< "[1] Comprar pieza."<<endl;
-    s<< "[2] Catalogo de piezas."<<endl;
-    s<< "[3] Atras" <<endl;
-    return s.str();
-}
 
 string Menu::develop() {
     stringstream s;

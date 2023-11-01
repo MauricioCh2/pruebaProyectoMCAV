@@ -12,37 +12,7 @@ Llantas::Llantas(string nombre , string ident , double precio, float traccion) {
     this->utilizada = false;
 }
 Llantas::~Llantas() {}
-//ITEM----------------------------------------
-const string &Llantas::getId() const {
-    return Pieza::getId();
-}
 
-void Llantas::setId(const string &id) {
-    Pieza::setId(id);
-}
-
-const string &Llantas::getNombre() const {
-    return Pieza::getNombre();
-}
-
-void Llantas::setNombre(const string &nombre) {
-    Pieza::setNombre(nombre);
-}
-
-double Llantas::getPrecio() const {
-    return Pieza::getPrecio();
-}
-
-void Llantas::setPrecio(double precio) {
-    Pieza::setPrecio(precio);
-}
-
-void Llantas::setTraccion(float traccion) {
-    Pieza::setVelocidad(traccion);
-}
-float Llantas::getTraccion()const {
-    return _traccion;
-}
 //Item-----------------------------------------------
 string Llantas::mostrarDecoraciones()   {
     stringstream s;

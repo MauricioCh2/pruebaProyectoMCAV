@@ -14,37 +14,6 @@ Motor::Motor(string nombre , string ident , double precio , float potencia) {
 
 }
 Motor::~Motor() {}
-//ITEM----------------------------------------
-const string &Motor::getId() const {
-    return Pieza::getId();
-}
-
-void Motor::setId(const string &id) {
-    Pieza::setId(id);
-}
-
-const string &Motor::getNombre() const {
-    return Pieza::getNombre();
-}
-
-void Motor::setNombre(const string &nombre) {
-    Pieza::setNombre(nombre);
-}
-
-double Motor::getPrecio() const {
-    return Pieza::getPrecio();
-}
-
-void Motor::setPrecio(double precio) {
-    Pieza::setPrecio(precio);
-}
-
-void Motor::setPotencia(float potencia) {
-    Pieza::setPotencia(potencia);
-}
-float Motor::getPotencia()const {
-    return _potencia;
-}
 //Item-----------------------------------------------
 
 string Motor::mostrarDecoraciones()   {
@@ -52,9 +21,6 @@ string Motor::mostrarDecoraciones()   {
     s <<"\t-Motor: " << getNombre() << "\n\tID: " << getId() <<"\tPrecio: " <<getPrecio() << "\tMejora en potencia: " << getPotencia()<< " Estado: ";
     this->getEstado() ? s<< YELLOW"Usado" << RESET: s << "Disponible"; //condicion ? exprecion1 : condicion2 (es otra forma de usar if)
     s<< endl;
-
-
-
     return s.str();
 }
 //OPERADORES------------------------------------------
@@ -91,6 +57,8 @@ Json::Value Motor::salvaDatos(Item &veh) {
 
     return event;
 }
+
+
 
 
 

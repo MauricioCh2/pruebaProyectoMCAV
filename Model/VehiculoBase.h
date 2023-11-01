@@ -12,26 +12,15 @@
 #include "Motor.h"
 #include "Llantas.h"
 #include "Nitro.h"
-class Vehiculo:public Item  {
+class Vehiculo:public Item  {      //Hija de la clase Item, forma parte del patron decorador
 private:
     Lista<Pieza,-1>* _lisPiezas;
 public:
-    //VehiculoBase();
     Vehiculo(string id = " ", string nombre = " ", double precio = 0.0, float traccion = 0.0, float velocidad = 0.0, float potencia = 0.0);
-    //Item--------------------------------------------
-    virtual const string &getId() const ;
-    virtual void setId(const string &id);
-    virtual const string &getNombre() const;
-    virtual void setNombre(const string &nombre);
-    virtual double getPrecio() const ;
-    virtual void setPrecio(double precio);
-    virtual float getTraccion() const;
-    virtual void setTraccion(float traccion) ;
-    virtual float getPotencia() const ;
-    virtual void setPotencia(float potencia) ;
+    virtual~Vehiculo();
     //Vehiculo-----------------------------------
     virtual Lista<Pieza,-1>* getListaPiezas();
-    virtual void quitarTodasLasDecos();
+    virtual void quitarTodasLasDecos(); //Elimina todas las piezas decorativas que tiene un vehiculo, y crea vacia nuevamente una lista de piezas.
     bool validarUso(string );
     //Item----------------------------------------
     virtual double costo();

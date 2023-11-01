@@ -4,7 +4,6 @@
 
 #include "Tienda.h"
 
-#include "Tienda.h"
 
 Tienda::Tienda() {
     ptrP = new Lista<Pieza,-1>;
@@ -12,14 +11,12 @@ Tienda::Tienda() {
     ifstream fpieza ("lisPiezaTienda.txt");
     Archivos<Lista<Pieza,-1>, Pieza> archP;
     ptrP = archP.cargarDatosPieza(fpieza);
-
 }
 
 
 
 Tienda::~Tienda() {
      if(ptrP!=NULL) delete ptrP;
-
 }
 
 Lista<Pieza, -1> *Tienda::getLista() {
@@ -27,32 +24,16 @@ Lista<Pieza, -1> *Tienda::getLista() {
 }
 
 
-void Tienda::ingresarPiezasTienda(Pieza * pP) {
+void Tienda::ingresarPiezasTienda(Pieza * pP) {   //Ingresa una pieza a la lista, por medio de una llamada al método insertarAlFinaal de la lista.
     ptrP->insertEnd(pP);
 }
 
-string Tienda::mostrarPiezas() {
+string Tienda::mostrarPiezas() {   //Muestra la lista de piezas, por medio de una llamada al toString de la lista
   return ptrP->toString();
 
 }
 
-void Tienda::mostrarPiezaEspecifica(string id) {
-    // Crear una variable temporal para guardar la pieza encontrada
-    Pieza* temp = nullptr;
-    // Buscar la pieza en la lista usando el método search
-    bool encontrado = &ptrP->search<string>(id);
-    // Si se encontró la pieza, mostrar su información usando el operador <<
-    if (encontrado) {
-        cout << "La pieza con el id " << id << " es: " << endl;
-        cout << *temp << endl;
-    }
-        // Si no se encontró, mostrar un mensaje de error
-    else {
-        cout << "No se encontró ninguna pieza con el id " << id << endl;
-    }
-}
-
-void Tienda::eliminarPiezas(string id) {
+void Tienda::eliminarPiezas(string id) {  //Elimina las piezas, según el id, por medio de una llamada al método eliminarEspecifico de la lista
     ptrP->deleteEspe(id);
 }
 

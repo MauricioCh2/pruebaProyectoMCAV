@@ -7,7 +7,7 @@
 #include "Tienda.h"
 #include "Jugador.h"
 #include "Archivos.h"
-class Juego {
+class Juego {       //Clase madre
 private:
     Tienda*_tienda;
     Jugador* _jugador;
@@ -19,6 +19,7 @@ private:
     string _listaPiezaTienda;
 public:
     Juego(Jugador* = new Jugador());
+    virtual~Juego();
     Jugador* recuperarJugador();
     //Jugador-----------------------------------------
     string imprimirInfoJugador();

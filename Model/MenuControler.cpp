@@ -199,7 +199,7 @@ bool MenuControler::llamarMenus() {
                 atras = !usarTienda();
             }
             break;
-        case 3: //Develop (No se si lo voy a dejar al final o lo incluimos en tienda y jugador)
+        case 3:
             while(!atras) {
                 clean();
                 print(_menu->develop());

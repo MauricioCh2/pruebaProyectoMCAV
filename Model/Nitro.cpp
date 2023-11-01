@@ -4,36 +4,23 @@
 
 #include "Nitro.h"
 Nitro::Nitro(string nombre , string ident , double precio, float velocidad ) {
+    //this->ptrItem = v;
+    //this->cont= this->ptrItem->getContador()+1;
     this->_nombre = nombre;
     this->_id = ident;
     this->_precio = precio;
     this->_velocidad = velocidad;
     this->utilizada = false;
+
 }
 Nitro::~Nitro() {}
 //ITEM----------------------------------------
-const string &Nitro::getId() const {
-    return Pieza::getId();
+double Nitro::costo() {
+    return this->ptrItem->costo() + this->_precio;
 }
 
-void Nitro::setId(const string &id) {
-    Pieza::setId(id);
-}
+void Nitro::agregarDecoraciones(Item *) {
 
-const string &Nitro::getNombre() const {
-    return Pieza::getNombre();
-}
-
-void Nitro::setNombre(const string &nombre) {
-    Pieza::setNombre(nombre);
-}
-
-double Nitro::getPrecio() const {
-    return Pieza::getPrecio();
-}
-
-void Nitro::setPrecio(double precio) {
-    Pieza::setPrecio(precio);
 }
 
 string Nitro::mostrarDecoraciones()   {

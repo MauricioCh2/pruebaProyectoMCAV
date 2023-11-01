@@ -88,7 +88,7 @@ bool recivirBool() {
     bool i;
     bool fin = false;
     while (!fin){
-        try{//valida que los datos ingresados por el usuario corresponden a un entero
+        try{//valida que los datos ingresados por el usuario corresponden a un bool
 
             if (cin >> i) {
                 fin = true;
@@ -111,7 +111,7 @@ double recivirDouble() {
     double i;
     bool fin = false;
     while (!fin){
-        try{//valida que los datos ingresados por el usuario corresponden a un entero
+        try{//valida que los datos ingresados por el usuario corresponden a un double
 
             if (cin >> i) {
                 fin = true;
