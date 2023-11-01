@@ -13,6 +13,7 @@ Jugador::Jugador() {
 }
 Jugador::Jugador(const string id, const string nombre, double dinero) : _id(id), _nombre(nombre), _dinero(dinero)/*ptrV(ptrV)*/ {
     _lisVehiculo = new Lista<Vehiculo,-1>;
+    _lisPiezas = new  Lista<Pieza, -1>;
 }
 
 Jugador::~Jugador() {
