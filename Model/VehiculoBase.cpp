@@ -74,10 +74,10 @@ void Vehiculo::incrementoDecremento(bool incremento, Pieza* item) {
             this->setPotencia(this->_potencia + item->getPotencia());
         }
         if (typeid(*item).name() == typeid(Nitro).name()) {
-            this->setVelocidad(_velocidad + item->getVelocidad());
+            this->setVelocidad(this->_velocidad + item->getVelocidad());
         }
         if (typeid(*item).name() == typeid(Llantas).name()) {
-            _traccion = _traccion + item->getTraccion();
+            this->setTraccion(this->_traccion + item->getTraccion());
         }
     } else {
         if (typeid(*item).name() == typeid(Motor).name()) {
@@ -87,7 +87,7 @@ void Vehiculo::incrementoDecremento(bool incremento, Pieza* item) {
             this->setVelocidad(_velocidad - item->getVelocidad());
         }
         if (typeid(*item).name() == typeid(Llantas).name()) {
-            _traccion = _traccion - item->getTraccion();
+            this->setTraccion(this->_traccion - item->getTraccion());
         }
     }
 }

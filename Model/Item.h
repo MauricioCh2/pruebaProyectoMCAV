@@ -34,7 +34,7 @@ public:
     virtual void setPotencia(const float potencia);
 
     // Metodos virtuales puros que heredan sus hijos e implementaran--------------------------
-    virtual double costo()=0;
+
     virtual string mostrarDecoraciones()  =0;
     //Operadores--------------------------------------
     friend ostream &operator<<(ostream &os,  Item &vehiculo);

@@ -501,9 +501,6 @@ Pieza *MenuControler::ingresarPieza() {
     return ptrP;
 }
 
-string MenuControler::mostrarPiezasTienda() {
-    return _juego->mostrarPiezasTienda();
-}
 
 bool MenuControler::eliminarPiezasTienda() {
     string idPieza = " ";
@@ -578,11 +575,12 @@ bool MenuControler::usarTienda() {
                     }else{
                         enter();
                         print(RED"No tienes dinero suficiente :(");
+                        enter();
                         return false;
                     }
                 }
             }else{
-                return true;
+                return false;
             }
         }
 

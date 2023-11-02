@@ -15,13 +15,6 @@ Nitro::Nitro(string nombre , string ident , double precio, float velocidad ) {
 }
 Nitro::~Nitro() {}
 //ITEM----------------------------------------
-double Nitro::costo() {
-    return this->ptrItem->costo() + this->_precio;
-}
-
-void Nitro::agregarDecoraciones(Item *) {
-
-}
 
 string Nitro::mostrarDecoraciones()   {
     stringstream s;

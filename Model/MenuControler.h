@@ -37,7 +37,6 @@ public:
     bool modifiarVehiculo();
 //Tienda
     Pieza* ingresarPieza();
-    string mostrarPiezasTienda();
     bool elegirPiezaTienda(string&);
     bool eliminarPiezasTienda();
     bool usarTienda();

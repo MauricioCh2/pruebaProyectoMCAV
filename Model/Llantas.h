@@ -14,11 +14,7 @@ public:
     Llantas(string nombre = " ", string ident = " ", double precio = 0.0, float traccion = 0.0);
     virtual ~Llantas();
     //Vehiculo----------------------------------------
-    virtual double costo();
-    virtual void agregarDecoraciones(Item*);
     virtual string mostrarDecoraciones();
-    //virtual void incrementoDecremento(bool);
-    virtual int getContador();
     //Operadores--------------------------------------
     friend ostream &operator<<(ostream &os,  Item &vehiculo);
     virtual bool operator==(const string& id) const;
