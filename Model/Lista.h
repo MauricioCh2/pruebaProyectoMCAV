@@ -260,38 +260,7 @@ bool Lista<T, tam>::exist(U ident) {
     }
 
     return false;
-//    if(emptyList()){
-//        return false;
-//    }
-//    Nodo<T> actual1 = *_first;
-//    Nodo<T> actual2 = *_end;
-//
-//    if(actual1.getNext() == nullptr && actual2.getPrev()== nullptr){ // si hay un solo objeto
-//        if (*(actual1.getInfo()) == ident) {
-//            return true;
-//        }
-//        if (*(actual2.getInfo()) == ident) {
-//            return true;
-//        }
-//        else {return false;}
-//    }
-//    while (actual1.getNext()->getNext() != nullptr && actual2.getPrev()->getPrev() != nullptr) {
-//
-//        if (*(actual1.getInfo()) == ident) {
-//            return true;
-//        }
-//        if (*(actual2.getInfo()) == ident) {
-//            return true;
-//        }
-//        if(actual1.getNext() != nullptr && actual2.getPrev() != nullptr  ){
-//            actual1 = *actual1.getNext();
-//            actual2 = *actual2.getPrev();
-//        }else {return false;}
-//
-//    }
-//    return false;
 }
-
 template<class T, int tam>
 bool Lista<T, tam>::deleteInPos(int pos ) {
     return false;
@@ -383,7 +352,7 @@ Nodo<T> *Lista<T, tam>::getEnd() {
 
 template <class T, int tam>
 Lista<T, tam>::~Lista() {
-    if (!this->emptyList())
+    while (!this->emptyList())
         this->deleteEnd();
 
 }

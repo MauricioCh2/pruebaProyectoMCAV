@@ -18,10 +18,15 @@ Lista<Pieza,-1>* Vehiculo::getListaPiezas(){
 }
 
 void Vehiculo::quitarTodasLasDecos(){
-    for (int i = 0; i < _lisPiezas->counter() ; i++) {     //Recorre la lista piezas
-         (*_lisPiezas)[i].setEstado(false);                //Cambia/Setea el estado de la pieza a falso, lo que indica que ya no esta disponible.
-        this->incrementoDecremento(false,(&(*_lisPiezas)[i]));  //Llama al metodo incremento/decremento
-        _lisPiezas->deleteEnd();  //Borra la lista iniciando desde el final
+//    for (int i = 0; i < _lisPiezas->counter() ; i++) {     //Recorre la lista piezas
+//         (*_lisPiezas)[i].setEstado(false);                //Cambia/Setea el estado de la pieza a falso, lo que indica que ya no esta disponible.
+//        this->incrementoDecremento(false,(&(*_lisPiezas)[i]));  //Llama al metodo incremento/decremento
+//        _lisPiezas->deleteEnd();  //Borra la lista iniciando desde el final
+//    }
+    while(!_lisPiezas->emptyList()){
+        _lisPiezas->getEnd()->getInfo()->setEstado(false);
+        this->incrementoDecremento(false,_lisPiezas->getEnd()->getInfo());
+        _lisPiezas->deleteEnd();
     }
     _lisPiezas = new Lista<Pieza,-1>;  //Crea una nueva lista de piezas vacía y la asigna a _lisPiezas
 }
@@ -69,7 +74,7 @@ string Vehiculo::mostrarDecoraciones()  {  //Devuelve la informacion del vehicul
 }
 
 void Vehiculo::incrementoDecremento(bool incremento, Pieza* item) {
-    if (incremento) {//Si se
+    if (incremento) {//Si se va a incluir un nuevo elemento ira a la parte de incremento decremento
         if (typeid(*item).name() == typeid(Motor).name()) {
             this->setPotencia(this->_potencia + item->getPotencia());
         }
@@ -79,7 +84,7 @@ void Vehiculo::incrementoDecremento(bool incremento, Pieza* item) {
         if (typeid(*item).name() == typeid(Llantas).name()) {
             this->setTraccion(this->_traccion + item->getTraccion());
         }
-    } else {
+    } else { // si se va a eliminar ira aca
         if (typeid(*item).name() == typeid(Motor).name()) {
             this->setPotencia(this->_potencia - item->getPotencia());
         }

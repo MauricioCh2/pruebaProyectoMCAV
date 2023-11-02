@@ -561,10 +561,7 @@ bool MenuControler::usarTienda() {
                         print("Estas seguro que quieres comprar esta pieza?(y/n)");
                         seguridad= yesOrNo();
                         if(seguridad){
-                            //aqui va el metodo bool de tienda comprar
-                            //void incluirle al jugador el Objeto
                             _juego->agregarPiezaTienda(ptrP);
-                            //void rebajarle al jugador el dinero
                             _juego->rebajoDeDinero(ptrP->getPrecio());
                             print(YELLOW"Pieza comprada exitosamente!");
                             enter();
